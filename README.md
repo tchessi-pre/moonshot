@@ -3,7 +3,7 @@
 </p>
 <p align="center">
     <h1 align="center">MOONSHOT</h1>
-</p>
+</p>  
 <p align="center">
     <em>HTTP error 401 for prompt `slogan`</em>
 </p>
