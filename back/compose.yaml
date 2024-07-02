@@ -1,0 +1,15 @@
+services:
+  database:
+    image: 'postgres'
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: moonshot
+      POSTGRES_DB: moonshot
+    ports:
+      - '5433:5432'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '9080:8080'
+
