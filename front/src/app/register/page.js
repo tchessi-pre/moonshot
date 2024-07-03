@@ -9,7 +9,6 @@ export default function Register() {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [birthdate, setBirthdate] = useState("");
-    const [country, setCountry] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -79,6 +78,9 @@ export default function Register() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
+                </div>
+                <div>
+                    <p>Vous avez un compte ? <a href="/login">Se connecter</a></p>
                 </div>
                 <button type="submit">Inscription</button>
             </form>
