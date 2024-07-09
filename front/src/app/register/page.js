@@ -3,6 +3,7 @@
 import React from "react";
 import { useState } from 'react';
 import Image from "next/image";
+import axios from "axios";
 
 export default function Register() {
     const [firstName, setFirstName] = useState(""); 
@@ -12,9 +13,23 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-    };
+
+
+
+        try { 
+            const response = await axios.post("/api/register", { firstname, lastname, email, birthday, password });
+            return response.status === 201;
+ 
+            } catch (error) {
+                console.log('Registration failed', error);
+                return false;
+            }
+
+        };
+        
+
 
     return (
         <div className="flex min-h-screen items-center justify-center">
