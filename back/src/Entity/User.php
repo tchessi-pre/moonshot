@@ -77,10 +77,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'creator')]
     private Collection $events;
 
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'writer')]
+    private Collection $comments;
+
+    /**
+     * @var Collection<int, Article>
+     */
+    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'writer')]
+    private Collection $articles;
+
+    /**
+     * @var Collection<int, Chat>
+     */
+    #[ORM\ManyToMany(targetEntity: Chat::class, inversedBy: 'users')]
+    private Collection $chatUser;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+        $this->chatUser = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -334,6 +355,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $event->setCreator(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setWriter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getWriter() === $this) {
+                $comment->setWriter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): static
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setWriter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): static
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getWriter() === $this) {
+                $article->setWriter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Chat>
+     */
+    public function getChatUser(): Collection
+    {
+        return $this->chatUser;
+    }
+
+    public function addChatUser(Chat $chatUser): static
+    {
+        if (!$this->chatUser->contains($chatUser)) {
+            $this->chatUser->add($chatUser);
+        }
+
+        return $this;
+    }
+
+    public function removeChatUser(Chat $chatUser): static
+    {
+        $this->chatUser->removeElement($chatUser);
 
         return $this;
     }
