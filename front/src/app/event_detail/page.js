@@ -11,19 +11,19 @@ import { Button } from "@/components/ui/button";
 
 export default function Events() {
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="relative w-3/4 bg-white shadow-lg rounded-lg overflow-hidden flex">
-                <div className="flex-shrink-0 p-5 w-2/5">
-                    <svg height="100%" width="100%" className="block">
+        <div className="flex  items-center justify-center min-h-screen bg-gray-100">
+            <div className="relative w-max sm:w-3/4 bg-white shadow-lg rounded-lg overflow-hidden flex flex-col sm:flex-row p:5">
+                <div className=" shrink p-5 w-max sm:w-2/5">
+                    <svg height="auto" width="100%" className="block">
                         <rect width="100%" height="100%" fill="grey" />
                     </svg>
                 </div>
-                <Card className="flex-1 w-3/5">
+                <Card className="flex-1 sm:w-3/5 p-5">
                     <CardHeader className="p-6 bg-gray-50">
-                        <CardTitle className="text-xl font-semibold mb-2 text-gray-900">Tango</CardTitle>
+                        <CardTitle className="text-xl font-semibold mb-2 text-grey-700">Tango</CardTitle>
                         <div className="flex justify-between">
-                            <CardDescription className="text-gray-600">Musique Argentine</CardDescription>
-                            <CardDescription className="text-gray-600">Le 16/07/2024</CardDescription>
+                            <CardDescription className="text-yellow-800">Musique Argentine</CardDescription>
+                            <CardDescription className="text-yellow-800">Le 16/07/2024</CardDescription>
                         </div>
                     </CardHeader>
                     <CardContent className="p-6 max-h-60 overflow-y-scroll">
