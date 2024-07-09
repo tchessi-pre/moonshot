@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240709141008 extends AbstractMigration
+final class Version20240709141709 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,10 +25,12 @@ final class Version20240709141008 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE chat_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE comment_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE event_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE "group_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE ingredient_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE podcast_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE recipe_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE sub_category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE article (id INT NOT NULL, writer_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, content TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_23A0E661BC7E6B6 ON article (writer_id)');
         $this->addSql('COMMENT ON COLUMN article.created_at IS \'(DC2Type:datetime_immutable)\'');
@@ -43,6 +45,8 @@ final class Version20240709141008 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN comment.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE event (id INT NOT NULL, creator_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description TEXT NOT NULL, date DATE NOT NULL, time TIME(0) WITHOUT TIME ZONE NOT NULL, place VARCHAR(255) NOT NULL, picture VARCHAR(255) DEFAULT NULL, link VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_3BAE0AA761220EA6 ON event (creator_id)');
+        $this->addSql('CREATE TABLE "group" (id INT NOT NULL, creator_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_6DC044C561220EA6 ON "group" (creator_id)');
         $this->addSql('CREATE TABLE ingredient (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE podcast (id INT NOT NULL, title VARCHAR(255) NOT NULL, description TEXT NOT NULL, audio_file BYTEA NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE recipe (id INT NOT NULL, title VARCHAR(255) NOT NULL, description TEXT NOT NULL, pictures VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
@@ -51,6 +55,10 @@ final class Version20240709141008 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_22D1FE13933FE08C ON recipe_ingredient (ingredient_id)');
         $this->addSql('CREATE TABLE sub_category (id INT NOT NULL, category_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description TEXT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_BCE3F79812469DE2 ON sub_category (category_id)');
+        $this->addSql('CREATE TABLE "user" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, birthday DATE DEFAULT NULL, profile_picture VARCHAR(255) DEFAULT NULL, bio TEXT DEFAULT NULL, city VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, hobbies JSON NOT NULL, languages JSON NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL ON "user" (email)');
+        $this->addSql('COMMENT ON COLUMN "user".created_at IS \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN "user".updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE user_chat (user_id INT NOT NULL, chat_id INT NOT NULL, PRIMARY KEY(user_id, chat_id))');
         $this->addSql('CREATE INDEX IDX_1F1CBE63A76ED395 ON user_chat (user_id)');
         $this->addSql('CREATE INDEX IDX_1F1CBE631A9A7125 ON user_chat (chat_id)');
@@ -60,28 +68,12 @@ final class Version20240709141008 extends AbstractMigration
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C1BC7E6B6 FOREIGN KEY (writer_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C7294869C FOREIGN KEY (article_id) REFERENCES article (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA761220EA6 FOREIGN KEY (creator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE "group" ADD CONSTRAINT FK_6DC044C561220EA6 FOREIGN KEY (creator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE recipe_ingredient ADD CONSTRAINT FK_22D1FE1359D8A214 FOREIGN KEY (recipe_id) REFERENCES recipe (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE recipe_ingredient ADD CONSTRAINT FK_22D1FE13933FE08C FOREIGN KEY (ingredient_id) REFERENCES ingredient (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE sub_category ADD CONSTRAINT FK_BCE3F79812469DE2 FOREIGN KEY (category_id) REFERENCES category (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE user_chat ADD CONSTRAINT FK_1F1CBE63A76ED395 FOREIGN KEY (user_id) REFERENCES "user" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE user_chat ADD CONSTRAINT FK_1F1CBE631A9A7125 FOREIGN KEY (chat_id) REFERENCES chat (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE user_group DROP CONSTRAINT fk_8f02bf9da76ed395');
-        $this->addSql('ALTER TABLE user_group DROP CONSTRAINT fk_8f02bf9dfe54d947');
-        $this->addSql('DROP TABLE user_group');
-        $this->addSql('ALTER TABLE "group" DROP CONSTRAINT fk_6dc044c5f05788e9');
-        $this->addSql('DROP INDEX idx_6dc044c5f05788e9');
-        $this->addSql('ALTER TABLE "group" ADD creator_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE "group" DROP creator_id_id');
-        $this->addSql('ALTER TABLE "group" ALTER description TYPE VARCHAR(255)');
-        $this->addSql('ALTER TABLE "group" ADD CONSTRAINT FK_6DC044C561220EA6 FOREIGN KEY (creator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('CREATE INDEX IDX_6DC044C561220EA6 ON "group" (creator_id)');
-        $this->addSql('ALTER TABLE "user" DROP country');
-        $this->addSql('ALTER TABLE "user" ALTER hobbies TYPE JSON');
-        $this->addSql('ALTER TABLE "user" ALTER languages TYPE JSON');
-        $this->addSql('ALTER TABLE "user" ALTER city DROP NOT NULL');
-        $this->addSql('ALTER TABLE "user" ALTER updated_at DROP NOT NULL');
-        $this->addSql('COMMENT ON COLUMN "user".hobbies IS NULL');
-        $this->addSql('COMMENT ON COLUMN "user".languages IS NULL');
     }
 
     public function down(Schema $schema): void
@@ -93,21 +85,19 @@ final class Version20240709141008 extends AbstractMigration
         $this->addSql('DROP SEQUENCE chat_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE comment_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE event_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE "group_id_seq" CASCADE');
         $this->addSql('DROP SEQUENCE ingredient_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE podcast_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE recipe_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE sub_category_id_seq CASCADE');
-        $this->addSql('CREATE TABLE user_group (user_id INT NOT NULL, group_id INT NOT NULL, PRIMARY KEY(user_id, group_id))');
-        $this->addSql('CREATE INDEX idx_8f02bf9dfe54d947 ON user_group (group_id)');
-        $this->addSql('CREATE INDEX idx_8f02bf9da76ed395 ON user_group (user_id)');
-        $this->addSql('ALTER TABLE user_group ADD CONSTRAINT fk_8f02bf9da76ed395 FOREIGN KEY (user_id) REFERENCES "user" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE user_group ADD CONSTRAINT fk_8f02bf9dfe54d947 FOREIGN KEY (group_id) REFERENCES "group" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('DROP SEQUENCE "user_id_seq" CASCADE');
         $this->addSql('ALTER TABLE article DROP CONSTRAINT FK_23A0E661BC7E6B6');
         $this->addSql('ALTER TABLE category_event DROP CONSTRAINT FK_D39D45EE12469DE2');
         $this->addSql('ALTER TABLE category_event DROP CONSTRAINT FK_D39D45EE71F7E88B');
         $this->addSql('ALTER TABLE comment DROP CONSTRAINT FK_9474526C1BC7E6B6');
         $this->addSql('ALTER TABLE comment DROP CONSTRAINT FK_9474526C7294869C');
         $this->addSql('ALTER TABLE event DROP CONSTRAINT FK_3BAE0AA761220EA6');
+        $this->addSql('ALTER TABLE "group" DROP CONSTRAINT FK_6DC044C561220EA6');
         $this->addSql('ALTER TABLE recipe_ingredient DROP CONSTRAINT FK_22D1FE1359D8A214');
         $this->addSql('ALTER TABLE recipe_ingredient DROP CONSTRAINT FK_22D1FE13933FE08C');
         $this->addSql('ALTER TABLE sub_category DROP CONSTRAINT FK_BCE3F79812469DE2');
@@ -119,25 +109,13 @@ final class Version20240709141008 extends AbstractMigration
         $this->addSql('DROP TABLE chat');
         $this->addSql('DROP TABLE comment');
         $this->addSql('DROP TABLE event');
+        $this->addSql('DROP TABLE "group"');
         $this->addSql('DROP TABLE ingredient');
         $this->addSql('DROP TABLE podcast');
         $this->addSql('DROP TABLE recipe');
         $this->addSql('DROP TABLE recipe_ingredient');
         $this->addSql('DROP TABLE sub_category');
+        $this->addSql('DROP TABLE "user"');
         $this->addSql('DROP TABLE user_chat');
-        $this->addSql('ALTER TABLE "group" DROP CONSTRAINT FK_6DC044C561220EA6');
-        $this->addSql('DROP INDEX IDX_6DC044C561220EA6');
-        $this->addSql('ALTER TABLE "group" ADD creator_id_id INT NOT NULL');
-        $this->addSql('ALTER TABLE "group" DROP creator_id');
-        $this->addSql('ALTER TABLE "group" ALTER description TYPE TEXT');
-        $this->addSql('ALTER TABLE "group" ADD CONSTRAINT fk_6dc044c5f05788e9 FOREIGN KEY (creator_id_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('CREATE INDEX idx_6dc044c5f05788e9 ON "group" (creator_id_id)');
-        $this->addSql('ALTER TABLE "user" ADD country VARCHAR(255) NOT NULL');
-        $this->addSql('ALTER TABLE "user" ALTER city SET NOT NULL');
-        $this->addSql('ALTER TABLE "user" ALTER updated_at SET NOT NULL');
-        $this->addSql('ALTER TABLE "user" ALTER hobbies TYPE TEXT');
-        $this->addSql('ALTER TABLE "user" ALTER languages TYPE TEXT');
-        $this->addSql('COMMENT ON COLUMN "user".hobbies IS \'(DC2Type:array)\'');
-        $this->addSql('COMMENT ON COLUMN "user".languages IS \'(DC2Type:array)\'');
     }
 }

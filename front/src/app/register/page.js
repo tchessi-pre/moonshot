@@ -15,9 +15,6 @@ export default function Register() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-
-
-
         try { 
             const response = await axios.post("/api/register", { firstname, lastname, email, birthday, password });
             return response.status === 201;
