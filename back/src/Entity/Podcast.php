@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupRepository;
+use App\Repository\PodcastRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GroupRepository::class)]
-#[ORM\Table(name: '`group`')]
-class Group
+#[ORM\Entity(repositoryClass: PodcastRepository::class)]
+class Podcast
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,27 +15,27 @@ class Group
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'groups')]
-    private ?User $creator = null;
+    #[ORM\Column(type: Types::BLOB)]
+    private $audioFile;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): static
+    public function setTitle(string $title): static
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -52,14 +52,14 @@ class Group
         return $this;
     }
 
-    public function getCreator(): ?User
+    public function getAudioFile()
     {
-        return $this->creator;
+        return $this->audioFile;
     }
 
-    public function setCreatorId(?User $creator): static
+    public function setAudioFile($audioFile): static
     {
-        $this->creator = $creator;
+        $this->audioFile = $audioFile;
 
         return $this;
     }

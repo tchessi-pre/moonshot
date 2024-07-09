@@ -1,10 +1,10 @@
 services:
   database:
-    image: 'postgres'
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
-      POSTGRES_PASSWORD: pass
-      POSTGRES_USER: moonshot
-      POSTGRES_DB: moonshot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
+      POSTGRES_USER: ${POSTGRES_USER:-moonshot}
+      POSTGRES_DB: ${POSTGRES_DB:-moonshot}
     ports:
       - '5433:5432'
   adminer:
