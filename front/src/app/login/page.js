@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import './style.css';
 import Image from 'next/image';
+import { Button } from "@/components/ui/button";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,35 +14,42 @@ export default function Login() {
   };
 
   return (
-		<div className='flex items-center justify-center min-h-screen'>
-			<form onSubmit={handleSubmit} className='w-full max-w-md'>
+	<main
+	className='relative flex flex-col items-center justify-center min-h-screen bg-center bg-cover'
+	style={{ backgroundImage: "url('/assets/bground.jpg')" }}
+>
+		<div className='flex items-center justify-center min-h-screen mx-2'>
+			<form onSubmit={handleSubmit} className='flex flex-col items-center justify-center  w-full max-w-md'>
+			<span className='text-white uppercase font-bold text-xl'>Connexion</span>
+
 				<div>
-					<label htmlFor='email'>Email</label>
-					<input
+					<input className='p-2 my-5 rounded-lg'
 						type='email'
 						id='email'
+						placeholder ='Email'
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
 					/>
 				</div>
-				<div>
-					<label htmlFor='password'>Mot de passe</label>
-					<input
+				<div >
+					<input className='p-2 my-5 rounded-lg'
 						type='password'
+						placeholder='Mot de passe'
 						id='password'
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
 				</div>
-				<div>
-					<p>
+				<div className="my-3">
+					<p className ="text-white">
 						Pas encore inscrit ? <a href='/register'>S'inscrire</a>
 					</p>
 				</div>
-				<button type='submit'>Se Connecter</button>
+				<Button>Se connecter</Button>
 			</form>
 		</div>
+		</main>
 	);
 }

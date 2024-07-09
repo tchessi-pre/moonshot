@@ -3,6 +3,18 @@
 import React from "react";
 import { useState } from 'react';
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+ 
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 
 export default function Register() {
     const [firstName, setFirstName] = useState(""); 
@@ -17,11 +29,17 @@ export default function Register() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center">
-            <form onSubmit={handleSubmit} className="w-full max-w-md">
+        <main
+        className='relative flex flex-col items-center justify-center min-h-screen bg-center bg-cover'
+        style={{ backgroundImage: "url('/assets/bground.jpg')" }}
+    >
+        <div className="flex flex-col">
+            <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md flex items-center justify-center min-h-screen mx-2">
+            <span className='text-white uppercase font-bold text-xl'>Inscription</span>
+
                 <div>
-                    <label htmlFor="firstName">Prénom</label>
-                    <input
+                    <input className='p-2 my-3 rounded-lg'
+                        placeholder="Prénom"
                         type="text"
                         id="firstName"
                         value={firstName}
@@ -30,8 +48,8 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="lastName">Nom</label>
-                    <input
+                    <input className='p-2 my-3 rounded-lg'
+                        placeholder="Nom"
                         type="text"
                         id="lastName"
                         value={lastName}
@@ -40,8 +58,8 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="email">Email</label>
-                    <input
+                    <input className='p-2 my-3 rounded-lg'
+                        placeholder = "Email"
                         type="email"
                         id="email"
                         value={email}
@@ -49,19 +67,37 @@ export default function Register() {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="birthdate">Date de naissance</label>
-                    <input
-                        type="date"
+                <div className="fw-[32rem]">
+                    <input className='text-neutral-400 w-max p-2 my-3 rounded-lg'
+                        placeholder = "Date de Naissance"
+                        type=""
                         id="birthdate"
                         value={birthdate}
-                        onChange={(e) => setBirthdate(e.target.value)}
+                        //onChange={(e) => setBirthdate(e.target.value)}
                         required
                     />
                 </div>
+
+                <Popover>
+      <PopoverTrigger asChild>
+        <Button variant={"outline"}>
+          <CalendarIcon className="mr-2 h-4 w-4" />
+         <span>Date de naissance</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar
+          mode="single"
+        //   selected={date}
+        //   onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+
                 <div>
-                    <label htmlFor="password">Mot de passe</label>
-                    <input
+                    <input className='p-2 my-3 rounded-lg'
+                        placeholder="Mot de passe"
                         type="password"
                         id="password"
                         value={password}
@@ -70,8 +106,8 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
-                    <input
+                    <input className='p-2 my-3 rounded-lg'
+                        placeholder = "Confirmer le mot de passe"
                         type="password"
                         id="confirmPassword"
                         value={confirmPassword}
@@ -79,11 +115,16 @@ export default function Register() {
                         required
                     />
                 </div>
-                <div>
-                    <p>Vous avez un compte ? <a href="/login">Se connecter</a></p>
-                </div>
-                <button type="submit">Inscription</button>
+
+				<Button>Inscription</Button>
+
+                <div className="text-white my-2">
+                    <p>Vous avez un compte ? <a className ="font-bold" href="/login">Se connecter</a></p>
+            </div>
             </form>
+
+
         </div>
+        </main>
     );
 }
