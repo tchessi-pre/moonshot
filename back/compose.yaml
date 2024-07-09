@@ -1,0 +1,15 @@
+services:
+  database:
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
+      POSTGRES_USER: ${POSTGRES_USER:-moonshot}
+      POSTGRES_DB: ${POSTGRES_DB:-moonshot}
+    ports:
+      - '5433:5432'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '9080:8080'
+
