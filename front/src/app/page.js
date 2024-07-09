@@ -8,13 +8,16 @@ export default function Home() {
 			style={{ backgroundImage: "url('/assets/bground.jpg')" }}
 		>
 			<NavBar />
-			<div className='p-8 mt-20 text-center text-white bg-black bg-opacity-50 rounded-lg'>
-				<h1 className='mb-4 text-4xl font-bold'>
-					Bienvenue sur ma Pangéa
-				</h1>
-				<p className='text-lg'>
-					Page d'accueil 
-				</p>
+			<div className='p-8 mt-20 text-center text-white bg-black bg-opacity-0 rounded-lg'>
+				<div className='flex items-center justify-center'>
+					<Image
+						src='/assets/circle-center.png' 
+						alt='Your Image Description'
+						width={500} 
+						height={500} 
+						className='rounded-full' 
+					/>
+				</div>
 			</div>
 		</main>
 	);
