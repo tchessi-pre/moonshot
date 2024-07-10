@@ -1,4 +1,4 @@
-<?php// src/Controller/RegistrationController.php
+<?php
 
 namespace App\Controller;
 
@@ -7,19 +7,17 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse; // Import JsonResponse
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 class RegistrationController extends AbstractController
 {
     #[Route('/api/register', name: 'app_register', methods: ['POST'])]
-    public function register(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         
-
         $user = new User();
 
         $user->setEmail($data['email']);
@@ -36,11 +34,10 @@ class RegistrationController extends AbstractController
         $user->setRoles(['ROLE_USER']);
         $user->setCreatedAt(new \DateTimeImmutable());
 
-       $entityManager->persist($user);
-       $entityManager->flush();
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-        return new ResponseJson(['message' => 'User created!'], Response::HTTP_CREATED);
-        
+        return new JsonResponse(['message' => 'User created!'], JsonResponse::HTTP_CREATED);
+    }
 }
-
-}
+    

@@ -9,7 +9,7 @@ export default function Register() {
     const [firstName, setFirstName] = useState(""); 
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [birthdate, setBirthdate] = useState("");
+    const [birthday, setBirthday] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -19,15 +19,20 @@ export default function Register() {
 
 
         try { 
-            const response = await axios.post("/api/register", { firstname, lastname, email, birthday, password });
-            return response.status === 201;
- 
-            } catch (error) {
-                console.log('Registration failed', error);
-                return false;
+            const response = await axios.post("localhost:8000/api/register", { 
+                firstName, 
+                lastName, 
+                email, 
+                birthday, 
+                password 
+            });
+            if (response.status === 201) {
+                console.log('User created successfully');
             }
-
-        };
+        } catch (error) {
+            console.log('Registration failed', error);
+        }
+    };
         
 
 
@@ -65,12 +70,12 @@ export default function Register() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="birthdate">Date de naissance</label>
+                    <label htmlFor="birthday">Date de naissance</label>
                     <input
                         type="date"
                         id="birthdate"
-                        value={birthdate}
-                        onChange={(e) => setBirthdate(e.target.value)}
+                        value={birthday}
+                        onChange={(e) => setBirthday(e.target.value)}
                         required
                     />
                 </div>

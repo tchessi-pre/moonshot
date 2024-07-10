@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-moonshot}
       POSTGRES_DB: ${POSTGRES_DB:-moonshot}
     ports:
-      - '5433:5432'
+      - '5432:5432'
   adminer:
     image: adminer
     restart: always
