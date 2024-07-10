@@ -1,126 +1,112 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { forwardRef } from 'react';
-
+import React from "react";
+import { useState } from 'react';
+import Image from "next/image";
+import axios from "axios";
 
 export default function Register() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState(null);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+    const [firstName, setFirstName] = useState(""); 
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+    const handleSubmit = async(e) => {
+        e.preventDefault();
 
-  const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <input
-      className="p-2 rounded-lg text-gray-500 "
-      placeholder="Date de naissance"
-      value={value}
-      onClick={onClick}
-      ref={ref}
-      readOnly
-      style={{ textAlign: 'left', width: '112%'}} // Ajouter width: '100%' pour s'assurer que l'input est à 100% de la largeur
-    />
-  ));
+        if (password !== confirmPassword) {
+            console.log('Les mots de passe ne correspondent pas');
+            return;
+        }
 
-  return (
-    <main className="relative flex flex-col items-center justify-center min-h-screen bg-center bg-cover"
-          style={{ backgroundImage: "url('/assets/bground.jpg')" }}>
-      <div className="flex flex-col">
-        <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md items-center justify-center min-h-screen mx-2">
-          <span className="text-white uppercase font-bold text-xl">Inscription</span>
+        try {
+            const response = await axios.post("http://localhost:8000/api/register", {
+                firstName,
+                lastName,
+                email,
+                birthday,
+                password
+            });
+            if (response.status === 201) {
+                console.log('Utilisateur créé avec succès');
+                // Rediriger ou afficher un message de succès
+            }
+        } catch (error) {
+            console.error('Échec de l\'inscription', error.response?.data?.message || error.message);
+            // Afficher un message d'erreur à l'utilisateur
+        }
+    };
 
-          <div className="w-full">
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Prénom"
-              type="text"
-              id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="w-full">
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Nom"
-              type="text"
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="w-full">
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Email"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className=" my-3 w-full">
-            <DatePicker
-              selected={birthdate}
-              onChange={(date) => setBirthdate(date)}
-              placeholderText="Date de naissance"
-              customInput={<CustomInput />}
-              showYearDropdown
-              dateFormat="dd/MM/yyyy"
-              yearDropdownItemNumber={15}
-              scrollableYearDropdown
-              maxDate={new Date()}
-            />
-          </div>
-
-          <div className="w-full"> 
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Mot de passe"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="w-full">
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Confirmer le mot de passe"
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <Button className="w-full mt-6">Inscription</Button>
-
-          <div className="text-white my-2">
-            <p>
-              Vous avez un compte ?{" "}
-              <a className="font-bold" href="/login">
-                Se connecter
-              </a>
-            </p>
-          </div>
-        </form>
-      </div>
-    </main>
-  );
+    return (
+        <div className="flex min-h-screen items-center justify-center">
+            <form onSubmit={handleSubmit} className="w-full max-w-md">
+                <div>
+                    <label htmlFor="firstName">Prénom</label>
+                    <input
+                        type="text"
+                        id="firstName"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="lastName">Nom</label>
+                    <input
+                        type="text"
+                        id="lastName"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="birthday">Date de naissance</label>
+                    <input
+                        type="date"
+                        id="birthdate"
+                        value={birthday}
+                        onChange={(e) => setBirthday(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="password">Mot de passe</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <p>Vous avez un compte ? <a href="/login">Se connecter</a></p>
+                </div>
+                <button type="submit">Inscription</button>
+            </form>
+        </div>
+    );
 }
