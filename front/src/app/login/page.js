@@ -44,7 +44,7 @@ export default function Login() {
 				</div>
 				<div className="my-3">
 					<p className ="text-white">
-						Pas encore inscrit ? <a href='/register'>S'inscrire</a>
+						Pas encore inscrit ? <a className ="font-bold" href='/register'>S'inscrire</a>
 					</p>
 				</div>
 				<Button>Se connecter</Button>
