@@ -2,19 +2,14 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  const [birthdate, setBirthdate] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -67,30 +62,19 @@ export default function Register() {
               required
             />
           </div>
-          {/* <div className="w-full">
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Date de Naissance"
-              type="date"
-              id="birthdate"
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
-              required
-            />
-          </div> */}
 
           <div className="w-full my-3">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant={"outline"} className="w-full">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  <span>Date de naissance</span>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar mode="single" initialFocus />
-              </PopoverContent>
-            </Popover>
+            <DatePicker
+              selected={birthdate}
+              onChange={(date) => setBirthdate(date)}
+              placeholderText="Date de naissance"
+              className="p-2 rounded-lg w-full"
+              showYearDropdown
+              dateFormat="dd/MM/yyyy"
+              yearDropdownItemNumber={15}
+              scrollableYearDropdown
+              maxDate={new Date()}
+            />
           </div>
 
           <div className="w-full">
@@ -116,7 +100,7 @@ export default function Register() {
             />
           </div>
 
-          <Button className="w-full my-2">Inscription</Button>
+          <Button className="w-full mt-6">Inscription</Button>
 
           <div className="text-white my-2">
             <p>
