@@ -2,19 +2,16 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { forwardRef } from 'react';
+
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  const [birthdate, setBirthdate] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -22,16 +19,23 @@ export default function Register() {
     e.preventDefault();
   };
 
+  const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    <input
+      className="p-2 rounded-lg text-gray-500 "
+      placeholder="Date de naissance"
+      value={value}
+      onClick={onClick}
+      ref={ref}
+      readOnly
+      style={{ textAlign: 'left', width: '112%'}} // Ajouter width: '100%' pour s'assurer que l'input est à 100% de la largeur
+    />
+  ));
+
   return (
-    <main
-      className="relative flex flex-col items-center justify-center min-h-screen bg-center bg-cover"
-      style={{ backgroundImage: "url('/assets/bground.jpg')" }}
-    >
+    <main className="relative flex flex-col items-center justify-center min-h-screen bg-center bg-cover"
+          style={{ backgroundImage: "url('/assets/bground.jpg')" }}>
       <div className="flex flex-col">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col w-full max-w-md items-center justify-center min-h-screen mx-2"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md items-center justify-center min-h-screen mx-2">
           <span className="text-white uppercase font-bold text-xl">Inscription</span>
 
           <div className="w-full">
@@ -67,40 +71,22 @@ export default function Register() {
               required
             />
           </div>
-          {/* <div className="w-full">
-            <input
-              className="p-2 my-3 rounded-lg w-full"
-              placeholder="Date de Naissance"
-              type="date"
-              id="birthdate"
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)}
-              required
-            />
-          </div> */}
 
-         <div className="w-full my-3">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant={"outline"} className="w-full flex flex-row justify-start text-gray-400">
-                <span className="flex flex-row justify-start">{birthdate ? birthdate.toLocaleDateString() : "Date de naissance"}</span>
-                  <CalendarIcon className="ml-2 h-4 w-4" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={birthdate}
-                  onSelect={setBirthdate}
-                  initialFocus
-                  max={new Date()}  
-                  enableYearDropdown  
-                />
-              </PopoverContent>
-            </Popover>
+          <div className=" my-3 w-full">
+            <DatePicker
+              selected={birthdate}
+              onChange={(date) => setBirthdate(date)}
+              placeholderText="Date de naissance"
+              customInput={<CustomInput />}
+              showYearDropdown
+              dateFormat="dd/MM/yyyy"
+              yearDropdownItemNumber={15}
+              scrollableYearDropdown
+              maxDate={new Date()}
+            />
           </div>
 
-          <div className="w-full">
+          <div className="w-full"> 
             <input
               className="p-2 my-3 rounded-lg w-full"
               placeholder="Mot de passe"
@@ -123,7 +109,7 @@ export default function Register() {
             />
           </div>
 
-          <Button className="w-full">Inscription</Button>
+          <Button className="w-full mt-6">Inscription</Button>
 
           <div className="text-white my-2">
             <p>
