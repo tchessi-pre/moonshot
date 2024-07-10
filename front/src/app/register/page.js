@@ -16,25 +16,28 @@ export default function Register() {
     const handleSubmit = async(e) => {
         e.preventDefault();
 
+        if (password !== confirmPassword) {
+            console.log('Les mots de passe ne correspondent pas');
+            return;
+        }
 
-
-        try { 
-            const response = await axios.post("localhost:8000/api/register", { 
-                firstName, 
-                lastName, 
-                email, 
-                birthday, 
-                password 
+        try {
+            const response = await axios.post("http://localhost:8000/api/register", {
+                firstName,
+                lastName,
+                email,
+                birthday,
+                password
             });
             if (response.status === 201) {
-                console.log('User created successfully');
+                console.log('Utilisateur créé avec succès');
+                // Rediriger ou afficher un message de succès
             }
         } catch (error) {
-            console.log('Registration failed', error);
+            console.error('Échec de l\'inscription', error.response?.data?.message || error.message);
+            // Afficher un message d'erreur à l'utilisateur
         }
     };
-        
-
 
     return (
         <div className="flex min-h-screen items-center justify-center">
