@@ -20,18 +20,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
 
@@ -65,33 +59,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    /**
-     * @var Collection<int, Group>
-     */
-    #[ORM\OneToMany(targetEntity: Group::class, mappedBy: 'creatorId')]
+    #[ORM\OneToMany(targetEntity: Group::class, mappedBy: 'creator')]
     private Collection $groups;
 
-    /**
-     * @var Collection<int, Event>
-     */
     #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'creator')]
     private Collection $events;
 
-    /**
-     * @var Collection<int, Comment>
-     */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'writer')]
     private Collection $comments;
 
-    /**
-     * @var Collection<int, Article>
-     */
     #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'writer')]
     private Collection $articles;
 
-    /**
-     * @var Collection<int, Chat>
-     */
     #[ORM\ManyToMany(targetEntity: Chat::class, inversedBy: 'users')]
     private Collection $chatUser;
 
@@ -102,6 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->chatUser = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -117,47 +97,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -166,17 +126,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Effacer les données sensibles temporaires ici, si nécessaire
     }
 
     public function getFirstName(): ?string
@@ -187,7 +142,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(string $firstName): static
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -199,7 +153,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -211,7 +164,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirthday(?\DateTimeInterface $birthday): static
     {
         $this->birthday = $birthday;
-
         return $this;
     }
 
@@ -223,7 +175,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfilePicture(?string $profilePicture): static
     {
         $this->profilePicture = $profilePicture;
-
         return $this;
     }
 
@@ -235,7 +186,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBio(?string $bio): static
     {
         $this->bio = $bio;
-
         return $this;
     }
 
@@ -247,7 +197,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setHobbies(array $hobbies): static
     {
         $this->hobbies = $hobbies;
-
         return $this;
     }
 
@@ -259,7 +208,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLanguages(array $languages): static
     {
         $this->languages = $languages;
-
         return $this;
     }
 
@@ -271,7 +219,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(?string $city): static
     {
         $this->city = $city;
-
         return $this;
     }
 
@@ -283,7 +230,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -295,13 +241,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Group>
-     */
     public function getGroups(): Collection
     {
         return $this->groups;
@@ -311,27 +253,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->groups->contains($group)) {
             $this->groups->add($group);
-            $group->setCreatorId($this);
+            $group->setCreator($this);
         }
-
         return $this;
     }
 
     public function removeGroup(Group $group): static
     {
         if ($this->groups->removeElement($group)) {
-            // set the owning side to null (unless already changed)
-            if ($group->getCreatorId() === $this) {
-                $group->setCreatorId(null);
+            if ($group->getCreator() === $this) {
+                $group->setCreator(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Event>
-     */
     public function getEvents(): Collection
     {
         return $this->events;
@@ -343,25 +279,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->events->add($event);
             $event->setCreator($this);
         }
-
         return $this;
     }
 
     public function removeEvent(Event $event): static
     {
         if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
             if ($event->getCreator() === $this) {
                 $event->setCreator(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Comment>
-     */
     public function getComments(): Collection
     {
         return $this->comments;
@@ -373,25 +303,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->comments->add($comment);
             $comment->setWriter($this);
         }
-
         return $this;
     }
 
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
             if ($comment->getWriter() === $this) {
                 $comment->setWriter(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Article>
-     */
     public function getArticles(): Collection
     {
         return $this->articles;
@@ -403,25 +327,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->articles->add($article);
             $article->setWriter($this);
         }
-
         return $this;
     }
 
     public function removeArticle(Article $article): static
     {
         if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
             if ($article->getWriter() === $this) {
                 $article->setWriter(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Chat>
-     */
     public function getChatUser(): Collection
     {
         return $this->chatUser;
@@ -432,14 +350,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->chatUser->contains($chatUser)) {
             $this->chatUser->add($chatUser);
         }
-
         return $this;
     }
 
     public function removeChatUser(Chat $chatUser): static
     {
         $this->chatUser->removeElement($chatUser);
-
         return $this;
     }
 }
