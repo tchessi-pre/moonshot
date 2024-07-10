@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d2839af4-3573-4a49-8218-199e4168ef26" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/back/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.3_1/bin/php">
+    <include_path>
+      <path value="$PROJECT_DIR$/back/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/runtime" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/doctrine-bridge" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/maker-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/password-hasher" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/back/vendor/composer" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/type-info" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/sql-formatter" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/back/vendor/doctrine/doctrine-migrations-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/back/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/back/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/back/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/back/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/back/vendor/nelmio/cors-bundle" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2j3ZIRx8WiqXxdBYL05lYMlGCXT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/axel/Documents/Lab/Workspace/Bachelor/moonshot",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.18034.69" />
+        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.18034.69" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d2839af4-3573-4a49-8218-199e4168ef26" name="Changes" comment="" />
+      <created>1720617640351</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720617640351</updated>
+      <workItem from="1720617641370" duration="6173000" />
+      <workItem from="1720626063887" duration="610000" />
+      <workItem from="1720636547668" duration="123000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
