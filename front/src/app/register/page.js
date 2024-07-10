@@ -2,14 +2,19 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState(null);
+  const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -62,19 +67,37 @@ export default function Register() {
               required
             />
           </div>
-
-          <div className="w-full my-3">
-            <DatePicker
-              selected={birthdate}
-              onChange={(date) => setBirthdate(date)}
-              placeholderText="Date de naissance"
-              className="p-2 rounded-lg w-full"
-              showYearDropdown
-              dateFormat="dd/MM/yyyy"
-              yearDropdownItemNumber={15}
-              scrollableYearDropdown
-              maxDate={new Date()}
+          {/* <div className="w-full">
+            <input
+              className="p-2 my-3 rounded-lg w-full"
+              placeholder="Date de Naissance"
+              type="date"
+              id="birthdate"
+              value={birthdate}
+              onChange={(e) => setBirthdate(e.target.value)}
+              required
             />
+          </div> */}
+
+         <div className="w-full my-3">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant={"outline"} className="w-full flex flex-row justify-start text-gray-400">
+                <span className="flex flex-row justify-start">{birthdate ? birthdate.toLocaleDateString() : "Date de naissance"}</span>
+                  <CalendarIcon className="ml-2 h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={birthdate}
+                  onSelect={setBirthdate}
+                  initialFocus
+                  max={new Date()}  
+                  enableYearDropdown  
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="w-full">
@@ -100,7 +123,7 @@ export default function Register() {
             />
           </div>
 
-          <Button className="w-full mt-6">Inscription</Button>
+          <Button className="w-full">Inscription</Button>
 
           <div className="text-white my-2">
             <p>
