@@ -50,11 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
-    #[ORM\Column]
-    private array $hobbies = [];
 
-    #[ORM\Column]
-    private array $languages = [];
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
@@ -94,6 +90,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\ManyToMany(targetEntity: Chat::class, inversedBy: 'users')]
     private Collection $chatUser;
+
+    #[ORM\Column]
+    private array $hobbies = [];
+
+    #[ORM\Column]
+    private array $languages = [];
 
     public function __construct()
     {
@@ -235,30 +237,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBio(?string $bio): static
     {
         $this->bio = $bio;
-
-        return $this;
-    }
-
-    public function getHobbies(): array
-    {
-        return $this->hobbies;
-    }
-
-    public function setHobbies(array $hobbies): static
-    {
-        $this->hobbies = $hobbies;
-
-        return $this;
-    }
-
-    public function getLanguages(): array
-    {
-        return $this->languages;
-    }
-
-    public function setLanguages(array $languages): static
-    {
-        $this->languages = $languages;
 
         return $this;
     }
@@ -439,6 +417,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeChatUser(Chat $chatUser): static
     {
         $this->chatUser->removeElement($chatUser);
+
+        return $this;
+    }
+
+    public function getHobbies(): array
+    {
+        return $this->hobbies;
+    }
+
+    public function setHobbies(array $hobbies): static
+    {
+        $this->hobbies = $hobbies;
+
+        return $this;
+    }
+
+    public function getLanguages(): array
+    {
+        return $this->languages;
+    }
+
+    public function setLanguages(array $languages): static
+    {
+        $this->languages = $languages;
 
         return $this;
     }

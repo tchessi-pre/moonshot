@@ -250,9 +250,6 @@ HTTP error 401 for prompt `features`
 
 ***Requirements***
 
-Ensure you have the following dependencies installed on your system:
-
-* **JavaScript**: `version x.y.z`
 
 ### ⚙️ Installation
 
@@ -292,7 +289,7 @@ composer install && symfony server:start
 cd front 
 ```
 ```sh
-npm install && symfony npm run dev
+npm install && npm run dev
 ```
 ### 🧪 Tests
 

@@ -16,6 +16,9 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\Authenticator
+            entry_point: App\Security\AuthenticationEntryPoint
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -28,6 +31,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/register, roles: PUBLIC_ACCESS }
 
 when@test:
     security:

@@ -57,7 +57,7 @@ class Group
         return $this->creator;
     }
 
-    public function setCreatorId(?User $creator): static
+    public function setCreator(?User $creator): static
     {
         $this->creator = $creator;
 
