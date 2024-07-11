@@ -4,28 +4,85 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import NavBar from '../components/NavBar';
 import EventCard from '../components/EventCard';
+import InterestList from '../components/InterestList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-// import './styles.css'; // Assurez-vous que le chemin est correct
+import './globals.css'; // Assurez-vous que le chemin est correct
 
 // Exemple de données des cartes
 const eventCards = [
 	{
 		image: '/assets/inde.jpg',
-		title: 'Soirée musique',
-		subtitle: 'Spécialité indienne',
+		title: 'Evénement 1',
+		subtitle: 'Événement indien',
 		description: "Description de l'événement 1",
 		buttonText: 'En savoir plus',
 	},
 	{
 		image: '/assets/vietnam.jpg',
-		title: 'Soirée dinatoire',
+		title: 'Evénement 2',
 		subtitle: 'Soirée asiatique',
 		description: "Description de l'événement 2",
 		buttonText: 'En savoir plus',
 	},
-	// Ajoutez plus de cartes ici
+	{
+		image: '/assets/asia-street.jpg',
+		title: 'Evénement 3',
+		subtitle: 'Festival italien',
+		description: "Description de l'événement 3",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/desert.jpg',
+		title: 'Evénement 4',
+		subtitle: 'Carnaval brésilien',
+		description: "Description de l'événement 4",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/japon_estampe.png',
+		title: 'Découverte',
+		subtitle: 'Fête japonaise',
+		description: "Description de l'événement 5",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/event1.png',
+		title: 'Evénement 6',
+		subtitle: 'Bastille Day',
+		description: "Description de l'événement 6",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/tango.png',
+		title: 'Evénement 7',
+		subtitle: '4th of July',
+		description: "Description de l'événement 7",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/china-6788187_1280.jpg',
+		title: 'Evénement 8',
+		subtitle: 'Nouvel An Chinois',
+		description: "Description de l'événement 8",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/torii.jpg',
+		title: 'Evénement 9',
+		subtitle: 'Fête espagnole',
+		description: "Description de l'événement 9",
+		buttonText: 'En savoir plus',
+	},
+	{
+		image: '/assets/vietnam.jpg',
+		title: 'Evénement 10',
+		subtitle: 'Dia de los Muertos',
+		description: "Description de l'événement 10",
+		buttonText: 'En savoir plus',
+	},
 ];
+
 
 export default function Home() {
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -68,9 +125,18 @@ export default function Home() {
 					/>
 				</div>
 			</div>
+			<div className='absolute bottom-30 right-4 flex items-center'>
+				<h3 className='text-white mr-4'>Nos actualités</h3>
+				<button
+					onClick={handlePrev}
+					className=' w-10 h-10 p-2 mr-1 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+				>
+					<FontAwesomeIcon icon={faArrowLeft} />
+				</button>
+			</div>
 			<div className='absolute bottom-4 right-4'>
 				<div className='flex items-center'>
-					<button
+					{/* <button
 						onClick={handlePrev}
 						className='w-10 h-10 p-2 mr-1 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
 					>
@@ -81,7 +147,7 @@ export default function Home() {
 						className='w-10 h-10 p-2 ml-2 mr-3 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
 					>
 						<FontAwesomeIcon icon={faArrowRight} />
-					</button>
+					</button> */}
 					<div className='relative w-[480px] h-[200px] overflow-hidden'>
 						{eventCards.map((card, index) => (
 							<div
@@ -100,6 +166,12 @@ export default function Home() {
 						))}
 					</div>
 				</div>
+			</div>
+			<div className='absolute top-20 left-24'>
+				<h2 className='text-lg font-bold text-white mb-4 ml-4 uppercase'>
+					Centre d'intérêt
+				</h2>
+				<InterestList />
 			</div>
 		</main>
 	);
