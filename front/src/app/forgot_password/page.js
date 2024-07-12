@@ -15,7 +15,6 @@ const ForgotPassword = () => {
 
     return (
         <div className="bg-cover bg-center min-h-screen flex flex-col" style={{ backgroundImage: 'url("/assets/bground.jpg")' }}>
-            <NavBar />
             <div className="container mx-auto py-8 flex-grow flex justify-center items-center">
                 <div className="p-8 w-full max-w-md mx-4">
                     <h2 className="text-2xl font-bold mb-6 text-center text-white">RÉINITIALISATION DE MON MOT DE PASSE</h2>
