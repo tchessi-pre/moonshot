@@ -60,10 +60,10 @@ const Events = () => {
     ];
 
     return (
-        <div className="bg-cover bg-center min-h-screen" style={{ backgroundImage: 'url("/assets/bground.jpg")' }}>
+        <div className="min-h-screen bg-center bg-cover" style={{ backgroundImage: 'url("/assets/bground.jpg")' }}>
             <NavBar />
-            <div className="container mx-auto py-8">
-                <h2 className="text-2xl font-bold mb-6 text-white" style={{marginTop:"50px"}}>Événements à Venir</h2>
+            <div className="container py-8 mx-auto">
+                <h2 className="mb-6 text-2xl font-bold text-white" style={{marginTop:"50px"}}>Événements à Venir</h2>
                 <Swiper
                     modules={[Navigation, Pagination]}
                     spaceBetween={20}
@@ -91,7 +91,7 @@ const Events = () => {
                     ))}
                 </Swiper>
 
-                <h2 className="text-2xl font-bold mt-12 mb-6 text-white">Événements Passés</h2>
+                <h2 className="mt-12 mb-6 text-2xl font-bold text-white">Événements Passés</h2>
                 <Swiper
                     modules={[Navigation, Pagination]}
                     spaceBetween={20}
