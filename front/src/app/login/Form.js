@@ -18,7 +18,7 @@ const Form = () => {
 		e.preventDefault();
 		setSubmitError('');
 
-		await fetchData('https://127.0.0.1:8000/api/login', {
+		await fetchData('http://127.0.0.1:8000/api/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -30,8 +30,15 @@ const Form = () => {
 
 	useEffect(() => {
 		if (data) {
-			toast.success('Connexion réussie !');
-			router.push('/events');
+			console.log('Received data:', data);
+			if (data.userId) {
+				localStorage.setItem('userId', data.userId);
+				toast.success('Connexion réussie !');
+				router.push('/events');
+			} else {
+				console.error('User ID not found in response:', data);
+				toast.error('Erreur lors de la connexion: ID utilisateur manquant');
+			}
 		}
 	}, [data, router]);
 

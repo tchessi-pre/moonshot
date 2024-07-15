@@ -24,7 +24,6 @@ class ProfileController extends AbstractController
     public function updateProfile(User $user, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
         return $this->json([
             'user' => $user,
         ]);
