@@ -50,7 +50,7 @@ const Form = () => {
 		>
 
 			<div className='w-full'>
-			<label>Nom</label>
+			<label className="font-bold">Nom</label>
 					<input
 						className='w-full p-2 my-3 rounded-lg'
 						placeholder='Nom'
@@ -63,7 +63,7 @@ const Form = () => {
 			</div>
 
 			<div className='w-full'>
-				<label>Prénom</label>
+				<label className="font-bold">Prénom</label>
 					<input
 						className='w-full p-2 my-3 rounded-lg'
 						placeholder='Prénom'
@@ -75,7 +75,7 @@ const Form = () => {
 					/>
 			</div>
 			<div className='w-full'>
-				<label>Localisation</label>
+				<label className="font-bold">Localisation</label>
 					<input
 						className='w-full p-2 my-3 rounded-lg'
 						placeholder='Localisation'
