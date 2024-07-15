@@ -29,7 +29,7 @@ const ForgotPassword = () => {
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="mt-1 p-2 block w-full border border-gray-300 rounded-md bg-transparent text-white placeholder-gray-300"
+                                className="mt-1 p-2 block w-full border border-gray-300 rounded-md bg-white text-black"
                                 placeholder="Email"
                                 required
                             />
