@@ -17,12 +17,13 @@ class Authenticator extends AbstractAuthenticator
 {
     public function supports(Request $request): ?bool
     {
-        // Ignore /api/register
-        if ($request->getPathInfo() === '/api/register') {
+        // Ignore /api/register and /api/login for token-based authentication
+        if ($request->getPathInfo() === '/api/register' || $request->getPathInfo() === '/api/login') {
             return false;
         }
         return $request->headers->has('X-AUTH-TOKEN');
     }
+
     public function authenticate(Request $request): Passport
     {
         $apiToken = $request->headers->get('X-AUTH-TOKEN');
