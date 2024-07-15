@@ -13,11 +13,15 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): JsonResponse
     {
         $user = $token->getUser();
+        if (!$user instanceof User) {
+            return new JsonResponse(['error' => 'Unexpected user type'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
         $data = [
-            'message' => 'Login successful yeah',
-            'userId' => $user instanceof User ? $user->getId() : null,
+            'message' => 'Login successful',
+            'userId' => $user->getId(),
         ];
 
-        return new JsonResponse($data, JsonResponse::HTTP_OK,);
+        return new JsonResponse($data, JsonResponse::HTTP_OK);
     }
 }

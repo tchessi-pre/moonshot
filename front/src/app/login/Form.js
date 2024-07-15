@@ -30,15 +30,9 @@ const Form = () => {
 
 	useEffect(() => {
 		if (data) {
-			console.log('Received data:', data);
-			if (data.userId) {
-				localStorage.setItem('userId', data.userId);
-				toast.success('Connexion réussie !');
-				router.push('/events');
-			} else {
-				console.error('User ID not found in response:', data);
-				toast.error('Erreur lors de la connexion: ID utilisateur manquant');
-			}
+			localStorage.setItem('userId', data.userId);
+			toast.success('Connexion réussie !');
+			router.push('/events');
 		}
 	}, [data, router]);
 
