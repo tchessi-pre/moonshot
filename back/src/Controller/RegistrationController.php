@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
     {
         if ($request->isMethod('OPTIONS')) {
             return new Response('', 200, [
-                'Access-Control-Allow-Origin' => 'http://localhost:3000',
+                'Access-Control-Allow-Origin' => 'https://localhost:3000',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
@@ -28,7 +28,9 @@ class RegistrationController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (!$data) {
-            return new JsonResponse(['error' => 'Invalid JSON'], JsonResponse::HTTP_BAD_REQUEST);
+            return new JsonResponse(['error' => 'Invalid JSON'], JsonResponse::HTTP_BAD_REQUEST, [
+                'Access-Control-Allow-Origin' => 'https://localhost:3000',
+            ]);
         }
 
         try {
@@ -38,26 +40,26 @@ class RegistrationController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setFirstName($data['firstName']);
             $user->setLastName($data['lastName']);
-            $user->setBirthday(new \DateTime($data['birthday']));
+            $user->setBirthday(new \DateTime($data['birthdate']));
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTimeImmutable());
 
             // Optionnels : vérifiez si ces champs existent dans $data avant de les définir
             $user->setProfilePicture($data['profilePicture'] ?? null);
             $user->setBio($data['bio'] ?? null);
-            $user->setHobbies(['test']);
-            $user->setLanguages(['test']);
-            $user->setCity('test');
+            $user->setHobbies($data['hobbies'] ?? []);
+            $user->setLanguages($data['languages'] ?? []);
+            $user->setCity($data['city'] ?? 'Unknown');
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             return new JsonResponse(['message' => 'User created!'], JsonResponse::HTTP_CREATED, [
-                'Access-Control-Allow-Origin' => 'http://localhost:3000'
+                'Access-Control-Allow-Origin' => 'https://localhost:3000'
             ]);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => 'An error occurred while creating the user'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-                'Access-Control-Allow-Origin' => 'http://localhost:3000'
+                'Access-Control-Allow-Origin' => 'https://localhost:3000'
             ]);
         }
     }
