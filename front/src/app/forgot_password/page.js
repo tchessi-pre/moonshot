@@ -11,10 +11,11 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-center bg-cover" style={{ backgroundImage: 'url("/assets/bground.jpg")' }}>
-            <div className="container flex items-center justify-center flex-grow py-8 mx-auto">
-                <div className="w-full max-w-md p-8 mx-4">
-                    <h2 className="mb-6 text-2xl font-bold text-center text-white">RÉINITIALISATION DE MON MOT DE PASSE</h2>
+        <div className="bg-cover bg-center min-h-screen flex flex-col" style={{ backgroundImage: 'url("/assets/bground.jpg")' }}>
+            <div className="container mx-auto py-8 flex-grow flex justify-center items-center">
+                <div className="p-8 w-full max-w-md mx-4">
+                    <h2 className="text-2xl font-bold mb-6 text-center text-white">RÉINITIALISATION DE MON MOT DE PASSE</h2>
+
                     <p className="mb-6 text-center text-white">
                         Si vous avez oublié votre mot de passe, merci de renseigner votre adresse email afin que nous puissions réinitialiser votre mot de passe
                     </p>
