@@ -73,4 +73,25 @@ class UserHandler
       'Access-Control-Allow-Origin' => 'https://localhost:3000',
     ]);
   }
+
+  public function getAllUsers(): JsonResponse
+  {
+    $users = $this->userRepository->findAll();
+    $userData = [];
+
+    foreach ($users as $user) {
+      $userData[] = [
+        'id' => $user->getId(),
+        'email' => $user->getEmail(),
+        'firstName' => $user->getFirstName(),
+        'lastName' => $user->getLastName(),
+        'birthday' => $user->getBirthday() ? $user->getBirthday()->format('Y-m-d') : null,
+        // Ajoutez d'autres champs si nécessaire
+      ];
+    }
+
+    return new JsonResponse($userData, JsonResponse::HTTP_OK, [
+      'Access-Control-Allow-Origin' => 'https://localhost:3000',
+    ]);
+  }
 }

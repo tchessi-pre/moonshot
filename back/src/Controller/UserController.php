@@ -47,4 +47,10 @@ class UserController extends AbstractController
 
     return $this->userHandler->updateCurrentUser($data);
   }
+
+  #[Route('/api/users', name: 'get_all_users', methods: ['GET'])]
+  public function getAllUsers(): JsonResponse
+  {
+    return $this->userHandler->getAllUsers();
+  }
 }
