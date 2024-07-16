@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import NavBar from '@/components/NavBar';
+import { Input } from "@/components/ui/input"
+
+
+
 
 function Form() {
     
@@ -27,7 +30,7 @@ function Form() {
 
     return (
         <>
-            <NavBar />
+         
             <div className='flex flex-col items-center justify-center w-full max-w-md mx-2'>
                 <h1 className='text-2xl 
                 font-family: Roboto Condensed; 
@@ -155,19 +158,16 @@ function Form() {
                             required
                         />
                     </div>
+                    </div>
 
-                    <div className='w-full min-w-[400px]'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Image'
-                            type='file'
-                            id='image'
-                            value={image}
-                            onChange={handleImageChange}
-                            required
-                        />
-                    </div>
-                    </div>
+               
+                 <div className='flex flex-row items-center justify-center w-full max-w-md mx-2 space-x-1'>
+                   <div className="w-full max-w-[230px] ">
+                    
+                     <Input id="picture" type="file" className='w-full p-3 my-3 rounded-lg'/>
+                      </div>
+
+                     </div>
                     
                     
                     <button
@@ -182,3 +182,18 @@ function Form() {
 }
 
 export default Form;
+
+
+
+
+
+
+
+export function InputFile() {
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="picture">Picture</Label>
+      <Input id="picture" type="file" />
+    </div>
+  )
+}
