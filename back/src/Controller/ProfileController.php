@@ -33,6 +33,10 @@ class ProfileController extends AbstractController
         try {
             $data = json_decode($request->getContent(), true);
 
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception('Invalid JSON: ' . json_last_error_msg());
+            }
+
             if (isset($data['firstName'])) $user->setFirstName($data['firstName']);
             if (isset($data['lastName'])) $user->setLastName($data['lastName']);
             if (isset($data['email'])) $user->setEmail($data['email']);
@@ -56,7 +60,8 @@ class ProfileController extends AbstractController
         } catch (\Exception $e) {
             return $this->json([
                 'error' => 'Failed to update profile',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
             ], 400);
         }
     }

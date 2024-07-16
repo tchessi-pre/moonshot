@@ -53,6 +53,7 @@ const ProfileForm = () => {
         }
     }, [data]);
 
+
     useEffect(() => {
         if (fetchError) {
             setError(typeof fetchError === 'string' ? fetchError : 'An error occurred while fetching data');
@@ -68,21 +69,23 @@ const ProfileForm = () => {
         }
 
         try {
+            const dataToSend = {
+                firstName,
+                lastName,
+                email,
+                birthday: birthday ? birthday.toISOString().split('T')[0] : null,
+            };
+            console.log('Data being sent:', JSON.stringify(dataToSend));
+
             const response = await fetchData(`http://127.0.0.1:8000/api/profile/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    firstName,
-                    lastName,
-                    email,
-                    birthday: birthday ? birthday.toISOString().split('T')[0] : null,
-                }),
+                body: JSON.stringify(dataToSend),
                 credentials: 'include',
             });
 
-            console.log('Server response:', response);
 
             if (response && !response.error) {
                 setSuccess('Profile updated successfully');
@@ -97,7 +100,6 @@ const ProfileForm = () => {
             setError(typeof err === 'string' ? err : 'An error occurred while updating the profile');
         }
     };
-
     if (loading) return <Loader />;
     if (error) return <div className="text-red-500">Error: {error}</div>;
     if (!userData) return <div>No user data available</div>;

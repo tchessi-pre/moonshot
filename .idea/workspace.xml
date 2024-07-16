@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2839af4-3573-4a49-8218-199e4168ef26" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/front/pnpm-lock.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="d2839af4-3573-4a49-8218-199e4168ef26" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +15,13 @@
     <execution>
       <executable path="composer" />
     </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,6 +90,23 @@
       <path value="$PROJECT_DIR$/back/vendor/psr/log" />
       <path value="$PROJECT_DIR$/back/vendor/psr/container" />
       <path value="$PROJECT_DIR$/back/vendor/nelmio/cors-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/back/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/web-link" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/twig-bridge" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/back/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/back/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/back/vendor/api-platform/core" />
+      <path value="$PROJECT_DIR$/back/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/back/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/back/vendor/psr/link" />
+      <path value="$PROJECT_DIR$/back/vendor/willdurand/negotiation" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/back/vendor/symfony/expression-language" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -97,19 +117,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/axel/Documents/Lab/Workspace/Bachelor/moonshot&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/backend/profile",
+    "last_opened_file_path": "/Users/axel/Documents/Lab/Workspace/Bachelor/moonshot",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -130,6 +151,7 @@
       <workItem from="1720626063887" duration="610000" />
       <workItem from="1720636547668" duration="123000" />
       <workItem from="1720772636202" duration="668000" />
+      <workItem from="1721030144433" duration="15368000" />
     </task>
     <servers />
   </component>
