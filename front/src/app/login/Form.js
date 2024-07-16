@@ -18,7 +18,7 @@ const Form = () => {
 		e.preventDefault();
 		setSubmitError('');
 
-		await fetchData('https://127.0.0.1:8000/api/login', {
+		await fetchData('http://127.0.0.1:8000/api/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
