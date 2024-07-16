@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Form } from './form';
+import Form from './form'; 
 
 export default function Register() {
 	const [error, setError] = useState('');
