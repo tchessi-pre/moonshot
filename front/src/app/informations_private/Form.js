@@ -86,7 +86,9 @@ const Form = () => {
 						required
 					/>
 			</div>
-
+			<Button type='submit' disabled={loading}>
+				Valider 
+			</Button>
 
 			{submitError && <div className='text-red-500'>{submitError}</div>}
 			{loading && <div className='text-blue-500'>Chargement...</div>}
