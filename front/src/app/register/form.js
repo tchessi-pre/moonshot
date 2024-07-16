@@ -86,7 +86,7 @@ const Form = () => {
 			onClick={onClick}
 			ref={ref}
 			readOnly
-			style={{ textAlign: 'left', width: '100%' }}
+			style={{ textAlign: 'left', width: '112%' }}
 		/>
 	));
 
@@ -147,7 +147,7 @@ const Form = () => {
 						customInput={<CustomInput />}
 						showYearDropdown
 						dateFormat='dd/MM/yyyy'
-						yearDropdownItemNumber={15}
+						yearDropdownItemNumber={100}
 						scrollableYearDropdown
 						maxDate={new Date()}
 					/>
