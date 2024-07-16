@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from '@/components/NavBar';
 
 function Form() {
     
@@ -27,7 +26,6 @@ function Form() {
 
     return (
         <>
-            <NavBar />
             <div className='flex flex-col items-center justify-center w-full max-w-md mx-2'>
                 <h1 className='text-2xl 
                 font-family: Roboto Condensed; 
@@ -43,7 +41,7 @@ function Form() {
                     className='flex flex-col items-center justify-center w-full'
                 >
                 
-                <div className='flex flex-row  items-center justify-center w-full max-w-md mx-2'>
+                <div className='flex flex-row items-center justify-center w-full max-w-md mx-2'>
                 <div className='flex flex-col items-center justify-center w-full max-w-md mx-2 min-w-[400px]'>
 
                     <div className='w-full'>
@@ -146,7 +144,7 @@ function Form() {
                     <div className='flex flex-row items-center justify-center w-full max-w-md mx-2 space-x-1'>
                     <div className='w-full min-w-[400px]'>
                         <input
-                            className='w-full p-11 my-3 rounded-lg'
+                            className='w-full my-3 rounded-lg p-11'
                             placeholder='Description'
                             type='text'
                             id='description'
@@ -172,7 +170,7 @@ function Form() {
                     
                     <button
                         type='submit'
-                        className='w-34 p-3 my-4 text-white bg-black rounded-lg'
+                        className='p-3 my-4 text-white bg-black rounded-lg w-34'
                     >
                         CRÉER MON ÉVÉNEMENT                    </button>
                 </form>
