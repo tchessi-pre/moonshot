@@ -73,5 +73,36 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  variants: {
+    extend: {
+      backgroundColor: ['before'],
+      backgroundImage: ['before'],
+      position: ['before'],
+      inset: ['before'],
+      width: ['before'],
+      height: ['before'],
+      zIndex: ['before'],
+      opacity: ['before'],
+    },
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.bg-opacity::before': {
+          content: "''",
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          'background-position': 'center',
+          'background-size': 'cover',
+          'background-image': "url('/assets/bground.jpg')",
+          opacity: '0.5', // Adjust the opacity value as needed
+          'z-index': '-1',
+        },
+      }, ['before'])
+    }
+  ],
+};

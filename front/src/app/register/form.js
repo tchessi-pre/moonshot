@@ -3,7 +3,7 @@ import React, { useState, forwardRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/component/loader';
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import useFetch from '../../hooks/useFetch';
 
