@@ -1,4 +1,4 @@
-'use client'; // Assurez-vous que ce composant est rendu côté client
+'use client'; 
 import NavBar from '../../components/NavBar';
 import EventCard from '../../components/EventCard';
 import React, { useRef } from 'react';
@@ -17,42 +17,42 @@ const Events = () => {
 			subtitle: 'Événements',
 			title: 'Événements du Mois',
 			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire à cet événement",
+			buttonText: "S'inscrire",
 		},
 		{
 			image: '/assets/event1.png',
 			subtitle: 'Événements',
 			title: 'Événements du Mois',
 			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire à cet événement",
+			buttonText: "S'inscrire",
 		},
 		{
 			image: '/assets/event1.png',
 			subtitle: 'Événements',
 			title: 'Événements du Mois',
 			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire à cet événement",
+			buttonText: "S'inscrire",
 		},
 		{
 			image: '/assets/event1.png',
 			subtitle: 'Événements',
 			title: 'Événements du Mois',
 			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire à cet événement",
+			buttonText: "S'inscrire",
 		},
 		{
 			image: '/assets/event1.png',
 			subtitle: 'Événements',
 			title: 'Événements du Mois',
 			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire à cet événement",
+			buttonText: "S'inscrire",
 		},
 		{
 			image: '/assets/event1.png',
 			subtitle: 'Événements',
 			title: 'Événements du Mois',
 			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire à cet événement",
+			buttonText: "S'inscrire",
 		},
 	];
 

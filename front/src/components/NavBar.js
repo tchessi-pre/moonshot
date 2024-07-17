@@ -15,10 +15,7 @@ import { useWindowSize } from "@uidotdev/usehooks";
 export default function NavBar() {
 
 	const size = useWindowSize();
-	console.log(size);
-	console.log(size.width)
-	console.log(size.height>size.width)
-
+	
 	return (
 		<nav className='absolute top-0 flex justify-between w-full p-4 bg-transparent'>
 			<div className='container flex items-center justify-between mx-auto'>
@@ -26,15 +23,13 @@ export default function NavBar() {
 					<Link href='/'>PANGEA</Link>
 				</div>
 				{size.height>size.width?<NavBarMobile />:< NavBarDesk />}
-				
-				
-				{/* <div className='flex space-x-4 w-1/4' >
+				{/* <div className='flex w-1/4 space-x-4' >
 					<NavigationMenu className='w-full'>
 						<NavigationMenuList>
 							<NavigationMenuItem >
 								<NavigationMenuTrigger>Evénements</NavigationMenuTrigger>
 								<NavigationMenuContent>
-									<ul className='sm:w-48 w-full'>
+									<ul className='w-full sm:w-48'>
 										<li className='my-2'>
 									<NavigationMenuLink href='/services'> 
 										Créer un événements
@@ -46,8 +41,6 @@ export default function NavBar() {
 									</NavigationMenuLink>
 										</li>
 									</ul>
-
-
 								</NavigationMenuContent>
 							</NavigationMenuItem>
 						</NavigationMenuList>
@@ -59,7 +52,6 @@ export default function NavBar() {
 								<NavigationMenuContent>
 								<ul className='w-36'>
 										<li className='my-2'>
-
 									<NavigationMenuLink href='/login'>
 										Se connecter
 									</NavigationMenuLink>
@@ -70,8 +62,6 @@ export default function NavBar() {
 									</NavigationMenuLink>
 										</li>
 									</ul>
-
-
 								</NavigationMenuContent>
 							</NavigationMenuItem>
 						</NavigationMenuList>
