@@ -20,5 +20,9 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Handler\UserHandler:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $security: '@security.helper'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
