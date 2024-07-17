@@ -75,7 +75,7 @@ export default function NavBarDesk() {
 										<li className='my-2'>
 											<Link
 												href='/informations_private'
-												className='w-full text-sm text-left'
+												className='w-full text-md left text-'
 											>
 												<FontAwesomeIcon icon={faUser} className='mr-2' />
 												Mon compte

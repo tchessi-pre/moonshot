@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 function Form() {
-    
     const [eventName, setEventName] = useState('');
     const [place, setPlace] = useState('');
     const [date, setDate] = useState('');
@@ -11,7 +10,7 @@ function Form() {
     const [lien, setLien] = useState('');
     const [tags, setTags] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState('null');
+    const [image, setImage] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,160 +22,128 @@ function Form() {
         setImage(e.target.files[0]);
     };
 
-
     return (
-        <>
-            <div className='flex flex-col items-center justify-center w-full max-w-md mx-2'>
-                <h1 className='text-2xl 
-                font-family: Roboto Condensed; 
-                font-size: 29.75px;
-                font-weight: 700;
-                line-height: 34.86px;
-                letter-spacing: 0.3em;
-                text-align: center;
-                text-center my-4'>
-                CRÉER UN ÉVÉNEMENT</h1>
-                <form
-                    onSubmit={handleSubmit}
-                    className='flex flex-col items-center justify-center w-full'
-                >
-                
-                <div className='flex flex-row items-center justify-center w-full max-w-md mx-2'>
-                <div className='flex flex-col items-center justify-center w-full max-w-md mx-2 min-w-[400px]'>
-
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Nom'
-                            type='text'
-                            id='eventName'
-                            value={eventName}
-                            onChange={(e) => setEventName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Lieu'
-                            type='text'
-                            id='place'
-                            value={place}
-                            onChange={(e) => setPlace(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Date'
-                            type='date'
-                            id='date'
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder="Type de l'événement"
-                            type='text'
-                            id='eventType'
-                            value={eventType}
-                            onChange={(e) => setEventType(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    </div>
-                    <div className='flex flex-col items-center justify-center w-full max-w-md mx-2 min-w-[400px]'>
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Nombre de participants'
-                            type='number'
-                            id='number'
-                            value={number}
-                            onChange={(e) => setNumber(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Prix (si payant)'
-                            type='number'
-                            id='price'
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Lien'
-                            type='text'
-                            id='lien'
-                            value={lien}
-                            onChange={(e) => setLien(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className='w-full'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Tags'
-                            type='text'
-                            id='tags'
-                            value={tags}
-                            onChange={(e) => setTags(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    </div>
-
-                    </div>
-                    
-                    <div className='flex flex-row items-center justify-center w-full max-w-md mx-2 space-x-1'>
-                    <div className='w-full min-w-[400px]'>
-                        <input
-                            className='w-full my-3 rounded-lg p-11'
-                            placeholder='Description'
-                            type='text'
-                            id='description'
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className='w-full min-w-[400px]'>
-                        <input
-                            className='w-full p-3 my-3 rounded-lg'
-                            placeholder='Image'
-                            type='file'
-                            id='image'
-                            value={image}
-                            onChange={handleImageChange}
-                            required
-                        />
-                    </div>
-                    </div>
-                    
-                    
-                    <button
-                        type='submit'
-                        className='p-3 my-4 text-white bg-black rounded-lg w-34'
-                    >
-                        CRÉER MON ÉVÉNEMENT                    </button>
-                </form>
-            </div>
-        </>
-    );
+			<>
+				<div className='flex flex-col items-center justify-center w-full max-w-2xl p-6 mx-2 my-8 rounded-lg'>
+					<h1 className='my-4 text-3xl font-bold text-gray-800 uppercase'>
+						CRÉER UN ÉVÉNEMENT
+					</h1>
+					<form
+						onSubmit={handleSubmit}
+						className='flex flex-col items-center justify-center w-full space-y-4'
+					>
+						<div className='flex flex-wrap w-full space-y-4 md:space-y-0'>
+							<div className='flex flex-col w-full px-2 space-y-4 md:w-1/2'>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Nom'
+									type='text'
+									id='eventName'
+									value={eventName}
+									onChange={(e) => setEventName(e.target.value)}
+									required
+								/>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Adresse'
+									type='text'
+									id='place'
+									value={place}
+									onChange={(e) => setPlace(e.target.value)}
+									required
+								/>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Date'
+									type='date'
+									id='date'
+									value={date}
+									onChange={(e) => setDate(e.target.value)}
+									required
+								/>
+								<select
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									id='eventType'
+									value={eventType}
+									onChange={(e) => setEventType(e.target.value)}
+									required
+								>
+									<option value=''>Sélectionnez un type d'événement</option>
+									<option value='musique'>Musique</option>
+									<option value='cuisine'>Cuisine</option>
+									<option value='langues'>Langues</option>
+								</select>
+							</div>
+							<div className='flex flex-col w-full px-2 space-y-4 md:w-1/2'>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Nombre de participants'
+									type='number'
+									id='number'
+									value={number}
+									onChange={(e) => setNumber(e.target.value)}
+									required
+								/>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Prix (si payant)'
+									type='number'
+									id='price'
+									value={price}
+									onChange={(e) => setPrice(e.target.value)}
+									required
+								/>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Lien'
+									type='text'
+									id='lien'
+									value={lien}
+									onChange={(e) => setLien(e.target.value)}
+									required
+								/>
+								<input
+									className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Tags'
+									type='text'
+									id='tags'
+									value={tags}
+									onChange={(e) => setTags(e.target.value)}
+									required
+								/>
+							</div>
+						</div>
+						<div className='flex flex-wrap w-full space-y-4 md:space-y-0'>
+							<div className='w-full px-2'>
+								<textarea
+									className='w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									placeholder='Description'
+									id='description'
+									value={description}
+									onChange={(e) => setDescription(e.target.value)}
+									required
+								/>
+							</div>
+							<div className='w-full px-2'>
+								<input
+									className='w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+									type='file'
+									id='image'
+									onChange={handleImageChange}
+									required
+								/>
+							</div>
+						</div>
+						<button
+							type='submit'
+							className='px-6 py-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-#9898d7- focus:ring-opacity-50 bg-black hover:bg-gray-600'
+						>
+							CRÉER MON ÉVÉNEMENT
+						</button>
+					</form>
+				</div>
+			</>
+		);
 }
 
 export default Form;
