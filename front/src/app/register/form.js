@@ -37,7 +37,7 @@ const Form = () => {
 
 		setLoading(true);
 
-		await fetchData('https://127.0.0.1:8000/api/register', {
+		await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

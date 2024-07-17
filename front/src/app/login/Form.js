@@ -16,11 +16,8 @@ const Form = () => {
 		e.preventDefault();
 		setLoading(true);
 
-		console.log('Email:', email);
-		console.log('Password:', password);
-
 		try {
-			const response = await fetch('https://127.0.0.1:8000/api/login', {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -30,15 +27,10 @@ const Form = () => {
 
 			const data = await response.json();
 
-			console.log('Response data:', data); // Log the response data
-
 			if (response.ok) {
 				// Sauvegarder le token et l'ID de l'utilisateur dans le localStorage
 				localStorage.setItem('token', data.token);
 				localStorage.setItem('user_id', data.user_id);
-
-				console.log('Token:', data.token); // Log the token
-				console.log('User ID:', data.user_id); // Log the user ID
 
 				toast.success('Connexion réussie !');
 				router.push('/events');

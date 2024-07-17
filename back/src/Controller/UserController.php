@@ -36,7 +36,7 @@ class UserController extends AbstractController
     ];
 
     return new JsonResponse($userData, JsonResponse::HTTP_OK, [
-      'Access-Control-Allow-Origin' => 'https://localhost:3000',
+      'Access-Control-Allow-Origin' => 'http://localhost:3000',
     ]);
   }
 
