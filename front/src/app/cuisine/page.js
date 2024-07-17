@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import NavBar from '../../components/NavBar';
 
-const musicEvents = [
+const foodEvents = [
     {
         image: "/assets/cuisine1.png",
         title: "CUISINE DU MONDE",
@@ -32,10 +33,11 @@ const musicEvents = [
 const MusicPage = () => {
     return (
         <div className="bg-cover bg-center min-h-screen" style={{ backgroundImage: 'url("/assets/bground.jpg")' }}>
+                        			<NavBar />
             <div className="container mx-auto py-8 px-4">
-                <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white text-center mb-8 font-roboto-condensed uppercase">ÉCOUTEZ LE MONDE CHANTER</h1>
+                <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white text-center mb-8 font-roboto-condensed uppercase" style={{marginTop:"49pxg"}}>NOS VOYAGES CULINAIRES</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                    {musicEvents.map((event, index) => (
+                    {foodEvents.map((event, index) => (
                         <div key={index} className="relative group overflow-hidden rounded-lg shadow-md">
                             <img src={event.image} alt={event.title} className="w-full h-64 md:h-48 lg:h-64 object-cover" />
                             <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-4 transform translate-y-full group-hover:translate-y-0 transition duration-300 ease-in-out">
