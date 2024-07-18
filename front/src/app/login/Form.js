@@ -3,46 +3,58 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import useFetch from '../../hooks/useFetch';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useFetch from '../../hooks/useFetch';
 
 const Form = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { data, error, loading, fetchData } = useFetch();
+	const [loading, setLoading] = useState(false);
 	const router = useRouter();
-	const [submitError, setSubmitError] = useState('');
+	const {
+		data,
+		error: fetchError,
+		loading: fetchLoading,
+		fetchData,
+	} = useFetch();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setSubmitError('');
+		setLoading(true);
 
-		await fetchData('https://127.0.0.1:8000/api/login', {
+		await fetchData('/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			data: { email, password },
-			withCredentials: true,
+			data: {
+				email,
+				password,
+			},
 		});
 	};
 
 	useEffect(() => {
 		if (data) {
+			// Sauvegarder le token et l'ID de l'utilisateur dans le sessionStorage
+			sessionStorage.setItem('token', data.token);
+			sessionStorage.setItem('user_id', data.user_id);
+
 			toast.success('Connexion réussie !');
 			router.push('/events');
 		}
 	}, [data, router]);
 
 	useEffect(() => {
-		if (error) {
-			console.error(error);
+		if (fetchError) {
+			console.error(fetchError);
 			toast.error(
-				"Erreur lors de la connexion. Veuillez vérifier vos informations d'identification."
+				fetchError.response?.data?.message || 'Erreur lors de la connexion.'
 			);
 		}
-	}, [error]);
+		setLoading(fetchLoading);
+	}, [fetchError, fetchLoading]);
 
 	return (
 		<>

@@ -2,48 +2,95 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/events',
+            description: 'Retrieve the collection of events',
+            normalizationContext: ['groups' => ['event:read']]
+        ),
+        new Post(
+            uriTemplate: '/event/create',
+            description: 'Create a new event',
+            denormalizationContext: ['groups' => ['event:write']]
+        ),
+        new Get(
+            uriTemplate: '/events/{id}',
+            description: 'Retrieve a specific event',
+            normalizationContext: ['groups' => ['event:read']]
+        ),
+        new Put(
+            uriTemplate: '/events/{id}',
+            description: 'Update an existing event',
+            denormalizationContext: ['groups' => ['event:write']]
+        ),
+        new Delete(
+            uriTemplate: '/event/{id}',
+            description: 'Delete an event'
+        ),
+    ],
+    normalizationContext: ['groups' => ['event:read']],
+    denormalizationContext: ['groups' => ['event:write']]
+)]
 class Event
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['event:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['event:read', 'event:write'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Groups(['event:read', 'event:write'])]
     private ?\DateTimeInterface $time = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $place = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $picture = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
+    #[Groups(['event:read', 'event:write'])]
     private ?User $creator = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $link = null;
 
     /**
      * @var Collection<int, Category>
      */
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'eventCategorization')]
+    #[Groups(['event:read', 'event:write'])]
     private Collection $categories;
 
     public function __construct()

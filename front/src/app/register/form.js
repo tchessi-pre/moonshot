@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/component/loader';
@@ -37,7 +37,7 @@ const Form = () => {
 
 		setLoading(true);
 
-		await fetchData('https://127.0.0.1:8000/api/register', {
+		await fetchData('/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -86,17 +86,13 @@ const Form = () => {
 			onClick={onClick}
 			ref={ref}
 			readOnly
-			style={{ textAlign: 'left', width: '100%' }}
+			style={{ textAlign: 'left', width: '112%' }}
 		/>
 	));
 
 	return (
 		<div className='relative flex flex-col items-center justify-center min-h-screen'>
-			{redirecting && (
-
-					<Loader />
-	
-			)}
+			{redirecting && <Loader />}
 			<form
 				onSubmit={handleSubmit}
 				className='flex flex-col items-center justify-center w-full max-w-md mx-2'
@@ -147,7 +143,7 @@ const Form = () => {
 						customInput={<CustomInput />}
 						showYearDropdown
 						dateFormat='dd/MM/yyyy'
-						yearDropdownItemNumber={15}
+						yearDropdownItemNumber={100}
 						scrollableYearDropdown
 						maxDate={new Date()}
 					/>

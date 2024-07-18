@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
     {
         if ($request->isMethod('OPTIONS')) {
             return new Response('', 200, [
-                'Access-Control-Allow-Origin' => 'https://localhost:3000',
+                'Access-Control-Allow-Origin' => 'http://localhost:3000',
                 'Access-Control-Allow-Methods' => 'POST, OPTIONS',
                 'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
             ]);
@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
 
         if (!$data) {
             return new JsonResponse(['error' => 'Invalid JSON'], JsonResponse::HTTP_BAD_REQUEST, [
-                'Access-Control-Allow-Origin' => 'https://localhost:3000',
+                'Access-Control-Allow-Origin' => 'http://localhost:3000',
             ]);
         }
 
@@ -55,11 +55,11 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             return new JsonResponse(['message' => 'User created!'], JsonResponse::HTTP_CREATED, [
-                'Access-Control-Allow-Origin' => 'https://localhost:3000'
+                'Access-Control-Allow-Origin' => 'http://localhost:3000'
             ]);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => 'An error occurred while creating the user'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR, [
-                'Access-Control-Allow-Origin' => 'https://localhost:3000'
+                'Access-Control-Allow-Origin' => 'http://localhost:3000'
             ]);
         }
     }

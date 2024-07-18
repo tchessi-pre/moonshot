@@ -299,6 +299,13 @@ To execute tests, run:
 npm test
 ```
 
+### 🧪 API DOCUMENTATION
+
+
+```sh
+http://localhost:8000/api
+```
+
 ---
 
 ## 🛠 Project Roadmap

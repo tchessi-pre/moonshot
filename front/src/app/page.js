@@ -126,21 +126,21 @@ export default function Home() {
 				</div>
 			</div>
 			<div className='absolute bottom-[15rem] right-2 flex items-center'>
-				<h3 className='text-white mr-4'>Nos actualités</h3>
+				<h3 className='mr-4 text-white'>Nos actualités</h3>
 				<button
 					onClick={handlePrev}
-					className=' w-10 h-10 p-2 mr-1 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+					className='flex items-center justify-center w-10 h-10 p-2 mr-8 text-black bg-white rounded-full hover:bg-gray-400'
 				>
 					<FontAwesomeIcon icon={faArrowLeft} />
 				</button>
-				<button
+				{/* <button
 					onClick={handleNext}
-					className='w-10 h-10 p-2 ml-2 mr-3 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+					className='flex items-center justify-center w-10 h-10 p-2 ml-2 mr-4 text-black bg-white rounded-full hover:bg-gray-400'
 				>
 					<FontAwesomeIcon icon={faArrowRight} />
-				</button>
+				</button> */}
 			</div>
-			<div className='absolute bottom-4 right-4'>
+			<div className='absolute right-0 bottom-4'>
 				<div className='relative w-[480px] h-[200px] overflow-hidden'>
 					{eventCards.map((card, index) => (
 						<div
@@ -159,13 +159,13 @@ export default function Home() {
 					))}
 				</div>
 			</div>
-			<div className='absolute top-20 left-24 mb-2'>
-				{/* <h2 className='text-lg text-white mb-10 ml-4 uppercase'>
+			<div className='absolute mb-2 top-20 left-24'>
+				{/* <h2 className='mb-10 ml-4 text-lg text-white uppercase'>
 					Centre d'intérêt
 				</h2> */}
 				<InterestList />
 			</div>
-			<div className='mt-4 absolute bottom-40 left-24'>
+			<div className='absolute mt-4 bottom-40 left-24'>
 				<VerticalMenu />
 			</div>
 		</main>

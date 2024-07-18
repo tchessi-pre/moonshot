@@ -15,7 +15,7 @@ class LoginController extends AbstractController
   {
     if ($request->isMethod('OPTIONS')) {
       return new Response('', 200, [
-        'Access-Control-Allow-Origin' => 'https://localhost:3000',
+        'Access-Control-Allow-Origin' => 'http://localhost:3000',
         'Access-Control-Allow-Methods' => 'POST, OPTIONS',
         'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
       ]);
@@ -23,7 +23,7 @@ class LoginController extends AbstractController
 
     // Cette méthode peut rester vide, Symfony s'occupe de l'authentification
     return new JsonResponse(['message' => 'Login route'], JsonResponse::HTTP_OK, [
-      'Access-Control-Allow-Origin' => 'https://localhost:3000',
+      'Access-Control-Allow-Origin' => 'http://localhost:3000',
     ]);
   }
 }
