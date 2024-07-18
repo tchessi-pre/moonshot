@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Form from './form'; 
+import NavBarLogin from '@/components/NavBarLogin'; 
 
 export default function Register() {
 	const [error, setError] = useState('');
@@ -25,6 +26,7 @@ export default function Register() {
 			className='relative flex flex-col items-center justify-center min-h-screen bg-center bg-cover'
 			style={{ backgroundImage: "url('/assets/bground.jpg')" }}
 		>
+			<NavBarLogin />
 			<div className='flex flex-col'>
 				<Form
 					onSuccess={handleSuccess}
