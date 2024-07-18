@@ -23,29 +23,6 @@ const Form = () => {
 		e.preventDefault();
 		setLoading(true);
 
-		console.log('Email:', email);
-		console.log('Password:', password);
-
-		try {
-			const response = await fetch('http://127.0.0.1:8000/api/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ email, password }),
-			});
-
-			const data = await response.json();
-
-			console.log('Response data:', data); // Log the response data
-
-			if (response.ok) {
-				// Sauvegarder le token et l'ID de l'utilisateur dans le localStorage
-				localStorage.setItem('token', data.token);
-				localStorage.setItem('user_id', data.user_id);
-
-				console.log('Token:', data.token); // Log the token
-				console.log('User ID:', data.user_id); // Log the user ID
 		await fetchData('/login', {
 			method: 'POST',
 			headers: {
