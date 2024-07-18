@@ -129,16 +129,16 @@ export default function Home() {
 				<h3 className='mr-4 text-white'>Nos actualités</h3>
 				<button
 					onClick={handlePrev}
-					className='flex items-center justify-center w-10 h-10 p-2 mr-1 text-black bg-white rounded-full hover:bg-gray-400'
+					className='flex items-center justify-center w-10 h-10 p-2 mr-8 text-black bg-white rounded-full hover:bg-gray-400'
 				>
 					<FontAwesomeIcon icon={faArrowLeft} />
 				</button>
-				<button
+				{/* <button
 					onClick={handleNext}
-					className='flex items-center justify-center w-10 h-10 p-2 ml-2 mr-3 text-black bg-white rounded-full hover:bg-gray-400'
+					className='flex items-center justify-center w-10 h-10 p-2 ml-2 mr-4 text-black bg-white rounded-full hover:bg-gray-400'
 				>
 					<FontAwesomeIcon icon={faArrowRight} />
-				</button>
+				</button> */}
 			</div>
 			<div className='absolute right-0 bottom-4'>
 				<div className='relative w-[480px] h-[200px] overflow-hidden'>

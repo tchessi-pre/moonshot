@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
@@ -20,36 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[ApiResource(
-    operations: [
-        new GetCollection(
-            uriTemplate: '/users',
-            description: 'Retrieve the collection of userss',
-            normalizationContext: ['groups' => ['user:read']]
-        ),
-        new Post(
-            uriTemplate: '/register',
-            description: 'Create a new user',
-            denormalizationContext: ['groups' => ['user:write']]
-        ),
-        new Get(
-            uriTemplate: '/users/{id}',
-            description: 'Retrieve a specific user',
-            normalizationContext: ['groups' => ['user:read']]
-        ),
-        new Put(
-            uriTemplate: '/user',
-            description: 'Update an existing user',
-            denormalizationContext: ['groups' => ['user:write']]
-        ),
-        new Delete(
-            uriTemplate: '/users/{id}',
-            description: 'Delete a user'
-        ),
-    ],
-    normalizationContext: ['groups' => ['user:read']],
-    denormalizationContext: ['groups' => ['user:write']]
-)]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

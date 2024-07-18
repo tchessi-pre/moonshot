@@ -5,12 +5,19 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useFetch from '../../hooks/useFetch';
 
 const Form = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+	const {
+		data,
+		error: fetchError,
+		loading: fetchLoading,
+		fetchData,
+	} = useFetch();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -39,19 +46,38 @@ const Form = () => {
 
 				console.log('Token:', data.token); // Log the token
 				console.log('User ID:', data.user_id); // Log the user ID
-
-				toast.success('Connexion réussie !');
-				router.push('/events');
-			} else {
-				toast.error(data.message || 'Erreur lors de la connexion.');
-			}
-		} catch (error) {
-			console.error('Erreur de connexion:', error);
-			toast.error('Erreur lors de la connexion.');
-		} finally {
-			setLoading(false);
-		}
+		await fetchData('/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			data: {
+				email,
+				password,
+			},
+		});
 	};
+
+	useEffect(() => {
+		if (data) {
+			// Sauvegarder le token et l'ID de l'utilisateur dans le sessionStorage
+			sessionStorage.setItem('token', data.token);
+			sessionStorage.setItem('user_id', data.user_id);
+
+			toast.success('Connexion réussie !');
+			router.push('/events');
+		}
+	}, [data, router]);
+
+	useEffect(() => {
+		if (fetchError) {
+			console.error(fetchError);
+			toast.error(
+				fetchError.response?.data?.message || 'Erreur lors de la connexion.'
+			);
+		}
+		setLoading(fetchLoading);
+	}, [fetchError, fetchLoading]);
 
 	return (
 		<>
