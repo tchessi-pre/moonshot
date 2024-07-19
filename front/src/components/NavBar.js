@@ -7,6 +7,7 @@ import {
 	NavigationMenuList,
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
+import SearchBar from '@/components/ui/SearchBar';
 
 export default function NavBar() {
 	return (
@@ -16,6 +17,7 @@ export default function NavBar() {
 					<Link href='/'>PANGEA</Link>
 				</div>
 				<div className='flex space-x-4'>
+				<SearchBar /> {SearchBar}
 					<NavigationMenu>
 						<NavigationMenuList>
 							<NavigationMenuItem>
