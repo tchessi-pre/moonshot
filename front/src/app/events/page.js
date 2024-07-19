@@ -33,9 +33,51 @@ const Events = () => {
 			description: 'Rencontre culinaire - Brazil',
 			buttonText: "S'inscrire à cet événement",
 		},
+		{
+			image: '/assets/event1.png',
+			subtitle: 'Événements',
+			title: 'Événements du Mois',
+			description: 'Rencontre culinaire - Brazil',
+			buttonText: "S'inscrire à cet événement",
+		},
+		{
+			image: '/assets/event1.png',
+			subtitle: 'Événements',
+			title: 'Événements du Mois',
+			description: 'Rencontre culinaire - Brazil',
+			buttonText: "S'inscrire à cet événement",
+		},
+		{
+			image: '/assets/event1.png',
+			subtitle: 'Événements',
+			title: 'Événements du Mois',
+			description: 'Rencontre culinaire - Brazil',
+			buttonText: "S'inscrire à cet événement",
+		},
 	];
 
 	const pastEvents = [
+		{
+			image: '/assets/event1.png',
+			subtitle: 'Événements',
+			title: 'Événements du Mois',
+			description: 'Rencontre culinaire - Brazil',
+			buttonText: 'Lire',
+		},
+		{
+			image: '/assets/event1.png',
+			subtitle: 'Événements',
+			title: 'Événements du Mois',
+			description: 'Rencontre culinaire - Brazil',
+			buttonText: 'Lire',
+		},
+		{
+			image: '/assets/event1.png',
+			subtitle: 'Événements',
+			title: 'Événements du Mois',
+			description: 'Rencontre culinaire - Brazil',
+			buttonText: 'Lire',
+		},
 		{
 			image: '/assets/event1.png',
 			subtitle: 'Événements',
@@ -87,6 +129,7 @@ const Events = () => {
 					ref={upcomingSwiperRef}
 					modules={[Navigation, Pagination]}
 					spaceBetween={20}
+					slidesPerView={1}
 					breakpoints={{
 						640: {
 							slidesPerView: 1,
@@ -101,8 +144,8 @@ const Events = () => {
 							spaceBetween: 30,
 						},
 					}}
-					navigation
-					pagination={{ clickable: true }}
+					navigation={false} 
+					pagination={{ clickable: false }} 
 				>
 					{upcomingEvents.map((event, index) => (
 						<SwiperSlide key={index}>
@@ -113,13 +156,13 @@ const Events = () => {
 				<div className='flex justify-center mt-4'>
 					<button
 						onClick={() => handlePrev(upcomingSwiperRef)}
-						className='w-10 h-10 p-2 mr-2 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+						className='flex items-center justify-center w-10 h-10 p-2 mr-2 text-black bg-white rounded-full hover:bg-gray-400'
 					>
 						<FontAwesomeIcon icon={faArrowLeft} />
 					</button>
 					<button
 						onClick={() => handleNext(upcomingSwiperRef)}
-						className='w-10 h-10 p-2 ml-2 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+						className='flex items-center justify-center w-10 h-10 p-2 ml-2 text-black bg-white rounded-full hover:bg-gray-400'
 					>
 						<FontAwesomeIcon icon={faArrowRight} />
 					</button>
@@ -132,6 +175,7 @@ const Events = () => {
 					ref={pastSwiperRef}
 					modules={[Navigation, Pagination]}
 					spaceBetween={20}
+					slidesPerView={1}
 					breakpoints={{
 						640: {
 							slidesPerView: 1,
@@ -146,8 +190,8 @@ const Events = () => {
 							spaceBetween: 30,
 						},
 					}}
-					navigation
-					pagination={{ clickable: true }}
+					navigation={false} 
+					pagination={{ clickable: false }}
 				>
 					{pastEvents.map((event, index) => (
 						<SwiperSlide key={index}>
@@ -158,13 +202,13 @@ const Events = () => {
 				<div className='flex justify-center mt-4'>
 					<button
 						onClick={() => handlePrev(pastSwiperRef)}
-						className='w-10 h-10 p-2 mr-2 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+						className='flex items-center justify-center w-10 h-10 p-2 mr-2 text-black bg-white rounded-full hover:bg-gray-400'
 					>
 						<FontAwesomeIcon icon={faArrowLeft} />
 					</button>
 					<button
 						onClick={() => handleNext(pastSwiperRef)}
-						className='w-10 h-10 p-2 ml-2 text-black bg-white rounded-full flex items-center justify-center hover:bg-gray-400'
+						className='flex items-center justify-center w-10 h-10 p-2 ml-2 text-black bg-white rounded-full hover:bg-gray-400'
 					>
 						<FontAwesomeIcon icon={faArrowRight} />
 					</button>

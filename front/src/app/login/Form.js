@@ -3,46 +3,55 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import useFetch from '../../hooks/useFetch';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { data, error, loading, fetchData } = useFetch();
+	const [loading, setLoading] = useState(false);
 	const router = useRouter();
-	const [submitError, setSubmitError] = useState('');
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setSubmitError('');
+		setLoading(true);
 
-		await fetchData('https://127.0.0.1:8000/api/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			data: { email, password },
-			withCredentials: true,
-		});
+		console.log('Email:', email);
+		console.log('Password:', password);
+
+		try {
+			const response = await fetch('https://127.0.0.1:8000/api/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email, password }),
+			});
+
+			const data = await response.json();
+
+			console.log('Response data:', data); // Log the response data
+
+			if (response.ok) {
+				// Sauvegarder le token et l'ID de l'utilisateur dans le localStorage
+				localStorage.setItem('token', data.token);
+				localStorage.setItem('user_id', data.user_id);
+
+				console.log('Token:', data.token); // Log the token
+				console.log('User ID:', data.user_id); // Log the user ID
+
+				toast.success('Connexion réussie !');
+				router.push('/events');
+			} else {
+				toast.error(data.message || 'Erreur lors de la connexion.');
+			}
+		} catch (error) {
+			console.error('Erreur de connexion:', error);
+			toast.error('Erreur lors de la connexion.');
+		} finally {
+			setLoading(false);
+		}
 	};
-
-	useEffect(() => {
-		if (data) {
-			toast.success('Connexion réussie !');
-			router.push('/events');
-		}
-	}, [data, router]);
-
-	useEffect(() => {
-		if (error) {
-			console.error(error);
-			toast.error(
-				"Erreur lors de la connexion. Veuillez vérifier vos informations d'identification."
-			);
-		}
-	}, [error]);
 
 	return (
 		<>
