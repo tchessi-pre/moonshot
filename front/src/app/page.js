@@ -131,7 +131,7 @@ export default function Home() {
 					onClick={handlePrev}
 					className='flex items-center justify-center w-10 h-10 p-2 mr-8 text-black bg-white rounded-full hover:bg-gray-400'
 				>
-					<FontAwesomeIcon icon={faArrowLeft} />
+					<FontAwesomeIcon icon={faArrowRight} />
 				</button>
 				{/* <button
 					onClick={handleNext}
@@ -159,15 +159,15 @@ export default function Home() {
 					))}
 				</div>
 			</div>
-			<div className='absolute mb-2 top-20 left-24'>
+			<div className='fixed h-full top-20 left-8'>
 				{/* <h2 className='mb-10 ml-4 text-lg text-white uppercase'>
 					Centre d'intérêt
 				</h2> */}
 				<InterestList />
 			</div>
-			<div className='absolute mt-4 bottom-40 left-24'>
-				<VerticalMenu />
-			</div>
+			<div className='fixed h-full top-64 left-11'>
+					<VerticalMenu />
+				</div>
 		</main>
 	);
 }
