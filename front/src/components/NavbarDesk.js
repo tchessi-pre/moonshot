@@ -45,12 +45,16 @@ export default function NavBarDesk() {
 						<NavigationMenuTrigger>Evénements</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className='w-full sm:w-48'>
-								<li className='my-2'>
+								{
+									isAuthenticated && (
+										<li className='my-2'>
 									<NavigationMenuLink href='/create_event'>
 										<FontAwesomeIcon icon={faPlus} className='mr-2' />
 										Créer un événement
 									</NavigationMenuLink>
 								</li>
+									)
+								}
 								<li>
 									<NavigationMenuLink href='/events'>
 										<FontAwesomeIcon icon={faList} className='mr-2' />

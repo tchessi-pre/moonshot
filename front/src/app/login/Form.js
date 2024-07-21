@@ -5,56 +5,41 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useFetch from '../../hooks/useFetch';
+import { fetchLogin } from '../../services/authService';
 
 const Form = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
-	const {
-		data,
-		error: fetchError,
-		loading: fetchLoading,
-		fetchData,
-	} = useFetch();
+
+	useEffect(() => {
+		// Vérifiez si l'utilisateur est déjà connecté
+		const token = sessionStorage.getItem('token');
+		if (token) {
+			router.replace('/events'); // Rediriger si l'utilisateur est déjà connecté
+		}
+	}, [router]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
 
-		await fetchData('/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			data: {
-				email,
-				password,
-			},
-		});
-	};
+		try {
+			const data = await fetchLogin(email, password);
 
-	useEffect(() => {
-		if (data) {
 			// Sauvegarder le token et l'ID de l'utilisateur dans le sessionStorage
 			sessionStorage.setItem('token', data.token);
 			sessionStorage.setItem('user_id', data.user_id);
-
 			toast.success('Connexion réussie !');
-			router.push('/events');
+			router.replace('/events');
+		} catch (error) {
+			console.error(error.message);
+			toast.error(error.message);
+		} finally {
+			setLoading(false);
 		}
-	}, [data, router]);
-
-	useEffect(() => {
-		if (fetchError) {
-			console.error(fetchError);
-			toast.error(
-				fetchError.response?.data?.message || 'Erreur lors de la connexion.'
-			);
-		}
-		setLoading(fetchLoading);
-	}, [fetchError, fetchLoading]);
+	};
 
 	return (
 		<>

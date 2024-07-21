@@ -1,22 +1,34 @@
-// axiosInstance.js
 import axios from 'axios';
 
-const instance = axios.create({
+const axiosInstance = axios.create({
 	baseURL: `${process.env.NEXT_PUBLIC_API_HOST}/api`,
 });
 
-instance.interceptors.request.use(
-	async function (request) {
+axiosInstance.interceptors.request.use(
+	async (config) => {
 		const token = sessionStorage.getItem('token');
 		if (token) {
-			request.headers.Authorization = `Bearer ${token}`;
+			config.headers.Authorization = `Bearer ${token}`;
 		}
-		return request;
+		return config;
 	},
-	function (error) {
-		console.log(error);
+	(error) => {
+		console.error('Request error: ', error);
 		return Promise.reject(error);
 	}
 );
 
-export default instance;
+axiosInstance.interceptors.response.use(
+	(response) => response,
+	(error) => {
+		// Gestion d'erreur centralisée pour les réponses
+		if (error.response) {
+			console.error('Response error: ', error.response.data);
+		} else {
+			console.error('Response error: ', error.message);
+		}
+		return Promise.reject(error);
+	}
+);
+
+export default axiosInstance;

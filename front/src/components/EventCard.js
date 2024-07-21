@@ -3,7 +3,7 @@ import React from 'react';
 const EventCard = ({ image, title, subtitle, description, buttonText }) => (
 	<div
 		className='flex overflow-hidden transition-transform duration-300 transform bg-white shadow-md hover:scale-105'
-		style={{ height: '180px', width: '300px', marginRight: '20px' }}
+		style={{ height: '200px', width: '430px', marginRight: '20px' }}
 	>
 		<div className='w-1/3 h-full'>
 			<img src={image} alt={title} className='object-cover w-full h-full' />
