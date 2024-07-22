@@ -18,12 +18,10 @@ export const fetchLogin = async (email, password) => {
 
 		const { jwt, user } = response.data;
 
-		// Vérifiez que jwt et user sont définis
 		if (!jwt || !user) {
 			throw new Error('Échec de la connexion, token ou utilisateur non trouvé');
 		}
 
-		// Enregistrez le token et l'ID utilisateur
 		saveAuthData(jwt, user.id);
 
 		return user;
@@ -42,24 +40,22 @@ export const fetchLogin = async (email, password) => {
 export const fetchRegister = async (userData) => {
 	try {
 		const response = await axiosInstance.post('/auth/local/register', {
-			username: userData.username, // Strapi requiert un username
+			username: userData.username,
 			email: userData.email,
 			password: userData.password,
-			firstName: userData.firstName,
-			lastName: userData.lastName,
-			localisation: userData.localisation,
+			firstname: userData.firstName,
+			lastname: userData.lastName,
+			birthdate: userData.birthdate,
 		});
 
 		const { jwt, user } = response.data;
 
-		// Vérifiez que jwt et user sont définis
 		if (!jwt || !user) {
 			throw new Error(
 				"Échec de l'inscription, token ou utilisateur non trouvé"
 			);
 		}
 
-		// Enregistrez le token et l'ID utilisateur
 		saveAuthData(jwt, user.id);
 
 		return user;
