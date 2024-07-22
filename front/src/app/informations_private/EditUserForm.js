@@ -7,10 +7,12 @@ import { updateCurrentUser } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import { InterestsForm } from '@/components/form/InterestsForm';
-import { ProfilePictureForm } from '@/components/form/ProfilePictureForm'; // Import the new component
+import { ProfilePictureForm } from '@/components/form/ProfilePictureForm';
 
 export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 	const [formData, setFormData] = useState({
+		id: user.id,
+		username: user.username, // Ajoutez le champ username ici
 		firstname: user.firstname,
 		lastname: user.lastname,
 		email: user.email,
@@ -18,7 +20,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		birthdate: user.birthdate || '',
 		biography: user.biography || '',
 		interests: user.interests || [],
-		profilePicture: user.profilePicture || '',
+		avatar: user.avatar || '',
 	});
 
 	const handleInputChange = (e) => {
@@ -38,29 +40,47 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+		console.log('Form data being sent:', formData);
 		try {
 			const updatedUser = await updateCurrentUser(formData);
 			setUser(updatedUser);
 			toast.success('Informations mises à jour avec succès!');
 			setIsEditing(false);
 		} catch (error) {
-			console.error(error.message);
-			toast.error(error.message);
+			console.error(
+				'Error updating user:',
+				error.response?.data || error.message
+			);
+			toast.error(
+				error.response?.data?.message ||
+					'Erreur lors de la mise à jour des données utilisateur'
+			);
 		}
 	};
 
+
 	return (
 		<form onSubmit={handleFormSubmit} className='mt-4 space-y-4'>
-			{/* Utilisation du composant ProfilePictureForm */}
 			<ProfilePictureForm
-				profilePicture={formData.profilePicture}
+				profilePicture={formData.avatar}
 				setProfilePicture={(file) =>
 					setFormData((prevData) => ({
 						...prevData,
-						profilePicture: file,
+						avatar: file,
 					}))
 				}
 			/>
+			<div>
+				<label className='block font-bold'>Nom d'utilisateur: </label>
+				<input
+					type='text'
+					name='username'
+					value={formData.username}
+					onChange={handleInputChange}
+					className='w-full p-2 mt-1 border rounded-lg'
+					required
+				/>
+			</div>
 			<div>
 				<label className='block font-bold'>Prénom: </label>
 				<input
@@ -124,8 +144,6 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 					className='mt-1'
 				/>
 			</div>
-			
-			{/* Utilisation du composant InterestsForm */}
 			<InterestsForm
 				interests={formData.interests}
 				setInterests={(newInterests) =>
