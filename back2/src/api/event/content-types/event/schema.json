@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event",
     "pluralName": "events",
-    "displayName": "Event"
+    "displayName": "Event",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,6 +14,46 @@
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "participant": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "link": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Langues",
+        "Cuisine",
+        "Musique"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "events"
     }
   }
 }

@@ -368,12 +368,25 @@ export interface ApiEventEvent extends Schema.CollectionType {
     singularName: 'event';
     pluralName: 'events';
     displayName: 'Event';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
+    participant: Attribute.Integer;
+    price: Attribute.Integer;
+    date: Attribute.DateTime;
+    link: Attribute.String;
+    category: Attribute.Enumeration<['Langues', 'Cuisine', 'Musique']>;
+    description: Attribute.Text;
+    picture: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    user: Attribute.Relation<
+      'api::event.event',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -763,6 +776,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       ['Sports', 'Lecture', 'Voyages', 'Danse']
     > &
       Attribute.DefaultTo<'Sports'>;
+    events: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::event.event'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
