@@ -8,6 +8,7 @@ import { fetchRegister } from '../../services/authService';
 
 const Form = () => {
 	const router = useRouter();
+	const [username, setUsername] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ const Form = () => {
 
 		try {
 			const userData = {
+				username,
 				firstName,
 				lastName,
 				email,
@@ -41,6 +43,7 @@ const Form = () => {
 
 			setSuccess('Inscription réussie !');
 			setError('');
+			setUsername('');
 			setFirstName('');
 			setLastName('');
 			setEmail('');
@@ -69,7 +72,17 @@ const Form = () => {
 				<span className='text-xl font-bold text-white uppercase'>
 					Inscription
 				</span>
-
+				<div className='w-full'>
+					<input
+						className='w-full p-2 my-3 rounded-lg'
+						placeholder="Nom d'utilisateur"
+						type='text'
+						id='username'
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						required
+					/>
+				</div>
 				<div className='w-full'>
 					<input
 						className='w-full p-2 my-3 rounded-lg'
@@ -103,7 +116,6 @@ const Form = () => {
 						required
 					/>
 				</div>
-
 				<div className='w-full my-3'>
 					<input
 						className='w-full p-2 rounded-lg'
@@ -115,7 +127,6 @@ const Form = () => {
 						required
 					/>
 				</div>
-
 				<div className='w-full'>
 					<input
 						className='w-full p-2 my-3 rounded-lg'
@@ -138,15 +149,12 @@ const Form = () => {
 						required
 					/>
 				</div>
-
 				{error && <div style={{ color: 'red' }}>{error}</div>}
 				{success && <div style={{ color: 'green' }}>{success}</div>}
 				{loading && <div style={{ color: 'blue' }}>Chargement...</div>}
-
 				<Button type='submit' className='w-full mt-6' disabled={loading}>
 					Inscription
 				</Button>
-
 				<div className='my-2 text-white'>
 					<p>
 						Vous avez un compte ?{' '}
