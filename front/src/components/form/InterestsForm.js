@@ -1,60 +1,67 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from 'react';
+import { fetchInterests } from '../../services/interestService';
 
-export const InterestsForm = ({ interests, setInterests }) => {
-	const [newInterest, setNewInterest] = useState('');
+const InterestsForm = ({ interests, setInterests }) => {
+	const [allInterests, setAllInterests] = useState([]);
 
-	const handleAddInterest = () => {
-		if (newInterest.trim()) {
-			setInterests((prevInterests) => [...prevInterests, newInterest.trim()]);
-			setNewInterest('');
+	useEffect(() => {
+		const loadInterests = async () => {
+			try {
+				const interestsData = await fetchInterests();
+				if (interestsData.data && Array.isArray(interestsData.data)) {
+					const interestList = interestsData.data.map(
+						(item) => item.attributes.name
+					);
+					setAllInterests(interestList);
+				}
+			} catch (error) {
+				console.error(
+					"Erreur lors de la récupération des centres d'intérêt",
+					error
+				);
+			}
+		};
+
+		loadInterests();
+	}, []);
+
+	const handleInterestChange = (e) => {
+		const options = e.target.options;
+		const selectedInterests = [];
+		for (let i = 0; i < options.length; i++) {
+			if (options[i].selected) {
+				selectedInterests.push(options[i].value);
+			}
 		}
+		setInterests(selectedInterests);
 	};
 
-	const handleRemoveInterest = (interestToRemove) => {
-		setInterests((prevInterests) =>
-			prevInterests.filter((interest) => interest !== interestToRemove)
+	if (!Array.isArray(allInterests)) {
+		return (
+			<div className='text-gray-600'>Chargement des centres d'intérêt...</div>
 		);
-	};
+	}
 
 	return (
 		<div>
-			<label className='block font-bold'>Centres d'intérêt: </label>
-			<div className='flex flex-wrap gap-2 mt-2'>
-				{interests.map((interest, index) => (
-					<div
-						key={index}
-						className='flex items-center px-2 py-1 space-x-2 text-white bg-gray-700 rounded-lg'
-					>
-						<span>{interest}</span>
-						<button
-							type='button'
-							onClick={() => handleRemoveInterest(interest)}
-							className='ml-2 text-red-500'
-						>
-							<span className='text-lg'>×</span>
-						</button>
-					</div>
+			<label className='block mb-2 font-bold'>Centres d'intérêt</label>
+			<select
+				multiple
+				value={interests}
+				onChange={handleInterestChange}
+				className='w-full p-2 border rounded-lg'
+				style={{ height: '200px' }} // Added height for better multi-select view
+			>
+				{allInterests.map((interest, index) => (
+					<option key={index} value={interest} className='py-2'>
+						{interest}
+					</option>
 				))}
-			</div>
-			<div className='flex mt-4 space-x-2'>
-				<input
-					type='text'
-					value={newInterest}
-					onChange={(e) => setNewInterest(e.target.value)}
-					className='flex-grow p-2 border rounded-lg'
-					placeholder="Ajouter un centre d'intérêt"
-				/>
-				<Button
-					type='button'
-					onClick={handleAddInterest}
-					className='px-4 py-2 text-white bg-green-500 rounded'
-				>
-					Ajouter
-				</Button>
-			</div>
+			</select>
 		</div>
 	);
 };
+
+export default InterestsForm;

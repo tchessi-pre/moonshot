@@ -21,6 +21,8 @@ export const updateCurrentUser = async (userData) => {
 		Object.keys(userData).forEach((key) => {
 			if (key === 'avatar' && userData[key] instanceof File) {
 				formData.append('files.avatar', userData[key]);
+			} else if (key === 'interests') {
+				formData.append(`data.${key}`, JSON.stringify(userData[key]));
 			} else {
 				formData.append(`data.${key}`, userData[key]);
 			}
@@ -31,6 +33,7 @@ export const updateCurrentUser = async (userData) => {
 				'Content-Type': 'multipart/form-data',
 			},
 		});
+		console.log('Server response:', response.data); // Ajout d'un log de la réponse
 		return response.data;
 	} catch (error) {
 		console.error(

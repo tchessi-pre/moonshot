@@ -405,6 +405,41 @@ export interface ApiEventEvent extends Schema.CollectionType {
   };
 }
 
+export interface ApiInterestInterest extends Schema.CollectionType {
+  collectionName: 'interests';
+  info: {
+    singularName: 'interest';
+    pluralName: 'interests';
+    displayName: 'Interest';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    users: Attribute.Relation<
+      'api::interest.interest',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::interest.interest',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::interest.interest',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -772,10 +807,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     birthdate: Attribute.Date;
     Biography: Attribute.Blocks;
     location: Attribute.String;
-    interests: Attribute.Enumeration<
-      ['Sports', 'Lecture', 'Voyages', 'Danse']
-    > &
-      Attribute.DefaultTo<'Sports'>;
+    interests: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::interest.interest'
+    >;
     events: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
@@ -856,6 +892,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::event.event': ApiEventEvent;
+      'api::interest.interest': ApiInterestInterest;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

@@ -1,18 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { updateCurrentUser } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
-import { InterestsForm } from '@/components/form/InterestsForm';
+import InterestsForm from '@/components/form/InterestsForm';
 import { ProfilePictureForm } from '@/components/form/ProfilePictureForm';
-
-const getFullImageUrl = (url) => {
-	const BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
-	return `${BASE_URL}${url}`;
-};
 
 const FormSection = ({ label, children }) => (
 	<div className='w-full mb-4 md:w-2/3 lg:w-1/2'>
@@ -32,8 +27,10 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		location: user.location,
 		birthdate: user.birthdate || '',
 		biography: user.biography || '',
-		interests: user.interests || [],
-		avatar: user.avatar?.url || null, // Assuming avatar.url is the URL of the existing image
+		interests: Array.isArray(user.interests)
+			? user.interests.map((interest) => interest.id)
+			: [], // Check if user.interests is an array
+		avatar: user.avatar?.url || null,
 	});
 
 	const handleInputChange = (e) => {
@@ -63,6 +60,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		console.log('Form data being sent:', formData);
 		try {
 			const updatedUser = await updateCurrentUser(formData);
+			console.log('Response from server:', updatedUser);
 			setUser(updatedUser);
 			toast.success('Informations mises à jour avec succès!');
 			setIsEditing(false);
@@ -83,7 +81,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 			onSubmit={handleFormSubmit}
 			className='flex flex-col items-center mt-4 space-y-6'
 		>
-			<FormSection >
+			<FormSection>
 				<ProfilePictureForm
 					profilePicture={formData.avatar}
 					setProfilePicture={handleAvatarChange}
@@ -158,7 +156,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 					/>
 				</div>
 			</FormSection>
-			<FormSection >
+			<FormSection>
 				<InterestsForm
 					interests={formData.interests}
 					setInterests={(newInterests) =>
@@ -187,3 +185,5 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		</form>
 	);
 };
+
+export default EditUserForm;

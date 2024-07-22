@@ -92,14 +92,10 @@
       "type": "string"
     },
     "interests": {
-      "type": "enumeration",
-      "enum": [
-        "Sports",
-        "Lecture",
-        "Voyages",
-        "Danse"
-      ],
-      "default": "Sports"
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::interest.interest",
+      "inversedBy": "users"
     },
     "events": {
       "type": "relation",
