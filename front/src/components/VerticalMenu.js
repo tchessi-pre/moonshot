@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-const items = ['LINGUISTIQUE', 'MUSIQUE', 'CUISINE'];
+const items = ['LANGUES', 'MUSIQUE', 'CUISINE'];
 
 const VerticalMenu = () => {
 	const router = useRouter();

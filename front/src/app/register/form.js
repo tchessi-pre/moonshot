@@ -1,31 +1,23 @@
 'use client';
-import React, { useState, useEffect, forwardRef } from 'react';
+
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/component/loader';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import useFetch from '../../hooks/useFetch';
+import { fetchRegister } from '../../services/authService';
 
 const Form = () => {
 	const router = useRouter();
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
-	const [birthdate, setBirthdate] = useState(null);
+	const [birthdate, setBirthdate] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [redirecting, setRedirecting] = useState(false);
-
-	const {
-		data,
-		error: fetchError,
-		loading: fetchLoading,
-		fetchData,
-	} = useFetch();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,58 +29,35 @@ const Form = () => {
 
 		setLoading(true);
 
-		await fetchData('/register', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			data: {
+		try {
+			const userData = {
 				firstName,
 				lastName,
 				email,
-				birthdate: birthdate ? birthdate.toISOString().split('T')[0] : null,
+				birthdate: birthdate ? birthdate : null,
 				password,
-			},
-			withCredentials: true,
-		});
-	};
+			};
+			const data = await fetchRegister(userData);
 
-	useEffect(() => {
-		if (data) {
 			setSuccess('Inscription réussie !');
 			setError('');
 			setFirstName('');
 			setLastName('');
 			setEmail('');
-			setBirthdate(null);
+			setBirthdate('');
 			setPassword('');
 			setConfirmPassword('');
 
 			setRedirecting(true);
 			router.push('/login');
-		}
-	}, [data, router]);
-
-	useEffect(() => {
-		if (fetchError) {
-			console.error(fetchError);
-			setError("Erreur lors de l'inscription");
+		} catch (error) {
+			console.error(error.message);
+			setError(error.message);
 			setSuccess('');
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
-	}, [fetchError]);
-
-	const CustomInput = forwardRef(({ value, onClick }, ref) => (
-		<input
-			className='p-2 text-gray-500 rounded-lg'
-			placeholder='Date de naissance'
-			value={value}
-			onClick={onClick}
-			ref={ref}
-			readOnly
-			style={{ textAlign: 'left', width: '112%' }}
-		/>
-	));
+	};
 
 	return (
 		<div className='relative flex flex-col items-center justify-center min-h-screen'>
@@ -136,16 +105,14 @@ const Form = () => {
 				</div>
 
 				<div className='w-full my-3'>
-					<DatePicker
-						selected={birthdate}
-						onChange={(date) => setBirthdate(date)}
-						placeholderText='Date de naissance'
-						customInput={<CustomInput />}
-						showYearDropdown
-						dateFormat='dd/MM/yyyy'
-						yearDropdownItemNumber={100}
-						scrollableYearDropdown
-						maxDate={new Date()}
+					<input
+						className='w-full p-2 rounded-lg'
+						type='date'
+						id='birthdate'
+						value={birthdate}
+						onChange={(e) => setBirthdate(e.target.value)}
+						placeholder='Date de naissance'
+						required
 					/>
 				</div>
 
