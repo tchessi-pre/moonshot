@@ -8,7 +8,7 @@ function Form() {
 	const [eventName, setEventName] = useState('');
 	const [place, setPlace] = useState('');
 	const [date, setDate] = useState('');
-	const [time, setTime] = useState(''); // New state for time
+	const [time, setTime] = useState('');
 	const [eventType, setEventType] = useState('');
 	const [number, setNumber] = useState('');
 	const [price, setPrice] = useState('');
@@ -25,27 +25,31 @@ function Form() {
 		setError('');
 		setSuccess('');
 
-		// Combine date and time
-		const combinedDateTime = `${date}T${time}`;
+		const eventData = new FormData();
+		eventData.append(
+			'data',
+			JSON.stringify({
+				name: eventName,
+				place,
+				date: `${date}T${time}`,
+				category: eventType,
+				participant: number,
+				price,
+				link: lien,
+				description,
+				user: sessionStorage.getItem('userId'),
+			})
+		);
 
-		const eventData = {
-			name: eventName,
-			place,
-			date: combinedDateTime, // Use combined date and time
-			category: eventType,
-			participant: number,
-			price,
-			link: lien,
-			description,
-			picture: image, // Assuming image is handled correctly in your backend
-			user: sessionStorage.getItem('userId'), // Assuming the user ID is stored in sessionStorage
-		};
+		if (image) {
+			eventData.append('files.picture', image);
+		}
 
 		try {
 			await createEvent(eventData);
 			setSuccess('Événement créé avec succès!');
 			setTimeout(() => {
-				router.push('/events'); // Redirect to the events page or another appropriate page
+				router.push('/events');
 			}, 2000);
 		} catch (error) {
 			setError("Erreur lors de la création de l'événement.");
@@ -59,16 +63,16 @@ function Form() {
 	};
 
 	return (
-		<div className='flex flex-col items-center justify-center w-full max-w-2xl p-6 mx-2 my-8 rounded-lg'>
+		<div className='flex flex-col items-center justify-center w-full max-w-2xl p-8 mx-auto my-8 bg-white rounded-lg shadow-lg'>
 			<h1 className='my-4 text-3xl font-bold text-gray-800 uppercase'>
 				CRÉER UN ÉVÉNEMENT
 			</h1>
 			<form
 				onSubmit={handleSubmit}
-				className='flex flex-col items-center justify-center w-full space-y-4'
+				className='flex flex-col items-center justify-center w-full space-y-6'
 			>
-				<div className='flex flex-wrap w-full space-y-4 md:space-y-0'>
-					<div className='flex flex-col w-full px-2 space-y-4 md:w-1/2'>
+				<div className='grid w-full grid-cols-1 gap-6 md:grid-cols-2'>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Nom'
@@ -78,6 +82,8 @@ function Form() {
 							onChange={(e) => setEventName(e.target.value)}
 							required
 						/>
+					</div>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Adresse'
@@ -87,6 +93,8 @@ function Form() {
 							onChange={(e) => setPlace(e.target.value)}
 							required
 						/>
+					</div>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Date'
@@ -96,6 +104,8 @@ function Form() {
 							onChange={(e) => setDate(e.target.value)}
 							required
 						/>
+					</div>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Heure'
@@ -105,6 +115,8 @@ function Form() {
 							onChange={(e) => setTime(e.target.value)}
 							required
 						/>
+					</div>
+					<div className='flex flex-col'>
 						<select
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							id='eventType'
@@ -112,13 +124,13 @@ function Form() {
 							onChange={(e) => setEventType(e.target.value)}
 							required
 						>
-							<option value=''>Sélectionnez un type d'événement</option>
+							<option value=''>Catégorie d'événement</option>
 							<option value='Musique'>Musique</option>
 							<option value='Cuisine'>Cuisine</option>
 							<option value='Langues'>Langues</option>
 						</select>
 					</div>
-					<div className='flex flex-col w-full px-2 space-y-4 md:w-1/2'>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Nombre de participants'
@@ -128,6 +140,8 @@ function Form() {
 							onChange={(e) => setNumber(e.target.value)}
 							required
 						/>
+					</div>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Prix (si payant)'
@@ -137,6 +151,8 @@ function Form() {
 							onChange={(e) => setPrice(e.target.value)}
 							required
 						/>
+					</div>
+					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Lien'
@@ -148,37 +164,35 @@ function Form() {
 						/>
 					</div>
 				</div>
-				<div className='flex flex-wrap w-full space-y-4 md:space-y-0'>
-					<div className='w-full px-2'>
-						<textarea
-							className='w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-							placeholder='Description'
-							id='description'
-							value={description}
-							onChange={(e) => setDescription(e.target.value)}
-							required
-						/>
-					</div>
-					<div className='w-full px-2'>
-						<input
-							className='w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-							type='file'
-							id='image'
-							onChange={handleImageChange}
-							required
-						/>
-					</div>
+				<div className='w-full'>
+					<textarea
+						className='w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+						placeholder='Description'
+						id='description'
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						required
+					/>
 				</div>
-				{error && <div style={{ color: 'red' }}>{error}</div>}
-				{success && <div style={{ color: 'green' }}>{success}</div>}
-				{loading && <div style={{ color: 'blue' }}>Chargement...</div>}
-				<button
+				<div className='w-full'>
+					<input
+						className='w-full p-3 mt-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+						type='file'
+						id='image'
+						onChange={handleImageChange}
+						required
+					/>
+				</div>
+				{error && <div className='text-red-500'>{error}</div>}
+				{success && <div className='text-green-500'>{success}</div>}
+				{loading && <div className='text-blue-500'>Chargement...</div>}
+				<Button
 					type='submit'
-					className='px-6 py-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-#9898d7- focus:ring-opacity-50 bg-black hover:bg-gray-600'
+					className='w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
 					disabled={loading}
 				>
 					CRÉER MON ÉVÉNEMENT
-				</button>
+				</Button>
 			</form>
 		</div>
 	);

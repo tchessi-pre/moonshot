@@ -12,10 +12,13 @@ const extractTextFromBiography = (biography) => {
 		return '';
 	}
 	return biography
-		.map((block) => {
-			return block.children.map((child) => child.text).join(' ');
-		})
-		.join('\n');
+		.map((block) => block.children.map((child) => child.text).join(' '))
+		.join('<br />'); 
+};
+
+const getFullImageUrl = (url) => {
+	const BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
+	return `${BASE_URL}${url}`;
 };
 
 export default function UserInfo() {
@@ -29,10 +32,11 @@ export default function UserInfo() {
 				const data = await fetchCurrentUser();
 				console.log('🚀 ~ getUserData ~ data:', data);
 
-				// Ensure interests is an array
 				if (!Array.isArray(data.interests)) {
-					data.interests = ["Lecture", "Danse", "Sport"];
+					data.interests = ['Lecture', 'Danse', 'Sport'];
 				}
+
+				data.biographyText = extractTextFromBiography(data.Biography);
 
 				setUser(data);
 			} catch (error) {
@@ -62,6 +66,8 @@ export default function UserInfo() {
 		);
 	}
 
+	console.log('Avatar URL:', user.avatar?.url);
+
 	return (
 		<div className='p-10 mt-8 mb-8 bg-opacity-50 bg-cover rounded-lg bg-orange-50 sm:h-full sm:w-3/5'>
 			{isEditing ? (
@@ -73,11 +79,14 @@ export default function UserInfo() {
 			) : (
 				<>
 					<div className='flex items-center space-x-4'>
-						{user.profilePicture ? (
+						{user.avatar && user.avatar.url ? (
 							<img
-								src={user.profilePicture}
+								src={getFullImageUrl(user.avatar.url)}
 								alt='Photo de profil'
-								className='object-cover w-32 h-32 rounded-full'
+								className='object-cover w-32 h-32 border-2 rounded-full '
+								onError={(e) => {
+									e.target.src = 'default-avatar-url';
+								}}
 							/>
 						) : (
 							<div className='flex items-center justify-center w-32 h-32 bg-gray-300 rounded-full'>
@@ -104,7 +113,7 @@ export default function UserInfo() {
 						<div>
 							<span className='font-bold'>Biographie: </span>
 							<div className='mt-2'>
-								<div dangerouslySetInnerHTML={{ __html: user.biography }} />
+								<div dangerouslySetInnerHTML={{ __html: user.biographyText }} />
 							</div>
 						</div>
 						<div>
