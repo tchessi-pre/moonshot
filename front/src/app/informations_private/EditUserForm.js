@@ -10,9 +10,10 @@ import { InterestsForm } from '@/components/form/InterestsForm';
 import { ProfilePictureForm } from '@/components/form/ProfilePictureForm';
 
 export const EditUserForm = ({ user, setUser, setIsEditing }) => {
+	console.log("🚀 ~ EditUserForm ~ user:", user)
 	const [formData, setFormData] = useState({
 		id: user.id,
-		username: user.username, // Ajoutez le champ username ici
+		username: user.username,
 		firstname: user.firstname,
 		lastname: user.lastname,
 		email: user.email,
@@ -20,7 +21,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		birthdate: user.birthdate || '',
 		biography: user.biography || '',
 		interests: user.interests || [],
-		avatar: user.avatar || '',
+		avatar: user.avatar || null,
 	});
 
 	const handleInputChange = (e) => {
@@ -36,6 +37,15 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 			...prevData,
 			biography: content,
 		}));
+	};
+
+	const handleAvatarChange = (e) => {
+		if (e.target && e.target.files && e.target.files[0]) {
+			setFormData((prevData) => ({
+				...prevData,
+				avatar: e.target.files[0],
+			}));
+		}
 	};
 
 	const handleFormSubmit = async (e) => {
@@ -58,17 +68,11 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		}
 	};
 
-
 	return (
 		<form onSubmit={handleFormSubmit} className='mt-4 space-y-4'>
 			<ProfilePictureForm
 				profilePicture={formData.avatar}
-				setProfilePicture={(file) =>
-					setFormData((prevData) => ({
-						...prevData,
-						avatar: file,
-					}))
-				}
+				setProfilePicture={handleAvatarChange}
 			/>
 			<div>
 				<label className='block font-bold'>Nom d'utilisateur: </label>

@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const fetchCurrentUser = async () => {
 	try {
-		const response = await axiosInstance.get('/users/me');
+		const response = await axiosInstance.get('/users/me?populate=*');
 		return response.data;
 	} catch (error) {
 		throw new Error(
@@ -16,7 +16,21 @@ export const updateCurrentUser = async (userData) => {
 	try {
 		const userId = userData.id;
 		console.log(`Sending update request for user ID: ${userId}`);
-		const response = await axiosInstance.put(`/users/${userId}`, userData);
+
+		const formData = new FormData();
+		Object.keys(userData).forEach((key) => {
+			if (key === 'avatar' && userData[key] instanceof File) {
+				formData.append('files.avatar', userData[key]);
+			} else {
+				formData.append(`data.${key}`, userData[key]);
+			}
+		});
+
+		const response = await axiosInstance.put(`/users/${userId}`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
 		return response.data;
 	} catch (error) {
 		console.error(

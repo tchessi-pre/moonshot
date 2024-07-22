@@ -4,21 +4,15 @@ import axiosInstance from './axiosInstance';
 // Fonction pour créer un événement
 export const createEvent = async (eventData) => {
 	try {
-		console.log('Event data being sent:', eventData); 
-		const response = await axiosInstance.post('/events', {
-			data: eventData, 
+		const response = await axiosInstance.post('/events', eventData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
 		});
 		return response.data;
 	} catch (error) {
 		console.error('Error creating event:', error);
-		if (error.response) {
-			throw new Error(
-				error.response.data.message ||
-					"Erreur lors de la création de l'événement."
-			);
-		} else {
-			throw new Error('Erreur de connexion au serveur');
-		}
+		throw error;
 	}
 };
 
