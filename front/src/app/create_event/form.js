@@ -18,6 +18,7 @@ function Form() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
+	const [acceptTerms, setAcceptTerms] = useState(false); // État pour la case à cocher
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -63,7 +64,7 @@ function Form() {
 	};
 
 	return (
-		<div className='flex flex-col items-center justify-center w-full max-w-2xl p-8 mx-auto my-8 bg-white rounded-lg shadow-lg'>
+		<div className='flex flex-col items-center justify-center w-full max-w-2xl p-8 mx-auto my-8 bg-white bg-opacity-50 rounded-lg shadow-lg'>
 			<h1 className='my-4 text-3xl font-bold text-gray-800 uppercase'>
 				CRÉER UN ÉVÉNEMENT
 			</h1>
@@ -75,7 +76,7 @@ function Form() {
 					<div className='flex flex-col'>
 						<input
 							className='w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
-							placeholder='Nom'
+							placeholder='Titre'
 							type='text'
 							id='eventName'
 							value={eventName}
@@ -183,13 +184,30 @@ function Form() {
 						required
 					/>
 				</div>
+				<div className='flex items-center space-x-2'>
+					<input
+						type='checkbox'
+						id='acceptTerms'
+						checked={acceptTerms}
+						onChange={(e) => setAcceptTerms(e.target.checked)}
+						className='w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
+						required
+					/>
+					<label htmlFor='acceptTerms' className='text-gray-700'>
+						J'accepte les conditions générales
+					</label>
+				</div>
 				{error && <div className='text-red-500'>{error}</div>}
 				{success && <div className='text-green-500'>{success}</div>}
 				{loading && <div className='text-blue-500'>Chargement...</div>}
 				<Button
 					type='submit'
-					className='w-full px-6 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
-					disabled={loading}
+					className={`w-full px-6 py-3 text-white rounded-lg focus:outline-none focus:ring-2 ${
+						acceptTerms
+							? 'bg-black hover:bg-gray-60 hover:bg-gray-600'
+							: 'bg-gray-400 cursor-not-allowed'
+					}`}
+					disabled={!acceptTerms || loading}
 				>
 					CRÉER MON ÉVÉNEMENT
 				</Button>

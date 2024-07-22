@@ -9,7 +9,7 @@ export default function CreateEvent() {
       {/* Background image with opacity */}
       <div 
         className="absolute inset-0 bg-center bg-cover"
-        style={{ backgroundImage: "url('/assets/bground.jpg')", opacity: 0.6 }}
+        style={{ backgroundImage: "url('/assets/bground.jpg')" }}
       ></div>
       
       <NavBar />
