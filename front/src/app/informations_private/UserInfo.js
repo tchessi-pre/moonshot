@@ -26,11 +26,7 @@ export default function UserInfo() {
 		const getUserData = async () => {
 			try {
 				const data = await fetchCurrentUser();
-				console.log('🚀 ~ getUserData ~ data:', data);
-
-				if (!Array.isArray(data.interests)) {
-					data.interests = ['Lecture', 'Danse', 'Sport'];
-				}
+				
 
 				data.biographyText = extractTextFromBiography(data.Biography);
 
@@ -100,11 +96,11 @@ export default function UserInfo() {
 						<div>
 							<span className='font-bold'>Centres d'intérêt: </span>
 							<div className='flex flex-wrap gap-2 mt-2'>
-								{user.interests.length > 0 ? (
+								{Array.isArray(user.interests) && user.interests.length > 0 ? (
 									user.interests.map((interest, index) => (
 										<div key={index} className='flex items-center space-x-2'>
 											<span className='inline-block px-2 py-1 text-white bg-gray-700 rounded-lg'>
-												{interest}
+												{interest.name}
 											</span>
 										</div>
 									))
