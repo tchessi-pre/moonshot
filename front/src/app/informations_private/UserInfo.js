@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@/components/ui/button';
 import { EditUserForm } from './EditUserForm';
+import ProfilePictureDisplay from '@/components/ProfilePictureDisplay';
 
 const extractTextFromBiography = (biography) => {
 	if (!biography || !Array.isArray(biography)) {
@@ -13,12 +14,7 @@ const extractTextFromBiography = (biography) => {
 	}
 	return biography
 		.map((block) => block.children.map((child) => child.text).join(' '))
-		.join('<br />'); 
-};
-
-const getFullImageUrl = (url) => {
-	const BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
-	return `${BASE_URL}${url}`;
+		.join('<br />');
 };
 
 export default function UserInfo() {
@@ -78,22 +74,7 @@ export default function UserInfo() {
 				/>
 			) : (
 				<>
-					<div className='flex items-center space-x-4'>
-						{user.avatar && user.avatar.url ? (
-							<img
-								src={getFullImageUrl(user.avatar.url)}
-								alt='Photo de profil'
-								className='object-cover w-32 h-32 border-2 rounded-full '
-								onError={(e) => {
-									e.target.src = 'default-avatar-url';
-								}}
-							/>
-						) : (
-							<div className='flex items-center justify-center w-32 h-32 bg-gray-300 rounded-full'>
-								<span className='text-gray-500'>Pas de photo</span>
-							</div>
-						)}
-					</div>
+					<ProfilePictureDisplay profilePicture={user.avatar} />
 					<div className='mt-6 space-y-4'>
 						<div className='text-lg font-bold uppercase'>
 							{user.firstname} {user.lastname}

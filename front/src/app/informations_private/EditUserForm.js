@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { updateCurrentUser } from '../../services/userService';
@@ -9,8 +9,20 @@ import { Button } from '@/components/ui/button';
 import { InterestsForm } from '@/components/form/InterestsForm';
 import { ProfilePictureForm } from '@/components/form/ProfilePictureForm';
 
+const getFullImageUrl = (url) => {
+	const BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
+	return `${BASE_URL}${url}`;
+};
+
+const FormSection = ({ label, children }) => (
+	<div className='w-full mb-4 md:w-2/3 lg:w-1/2'>
+		<label className='block mb-2 font-bold'>{label}</label>
+		{children}
+	</div>
+);
+
 export const EditUserForm = ({ user, setUser, setIsEditing }) => {
-	console.log("🚀 ~ EditUserForm ~ user:", user)
+	console.log('🚀 ~ EditUserForm ~ user:', user);
 	const [formData, setFormData] = useState({
 		id: user.id,
 		username: user.username,
@@ -21,7 +33,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		birthdate: user.birthdate || '',
 		biography: user.biography || '',
 		interests: user.interests || [],
-		avatar: user.avatar || null,
+		avatar: user.avatar?.url || null, // Assuming avatar.url is the URL of the existing image
 	});
 
 	const handleInputChange = (e) => {
@@ -39,13 +51,11 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		}));
 	};
 
-	const handleAvatarChange = (e) => {
-		if (e.target && e.target.files && e.target.files[0]) {
-			setFormData((prevData) => ({
-				...prevData,
-				avatar: e.target.files[0],
-			}));
-		}
+	const handleAvatarChange = (file) => {
+		setFormData((prevData) => ({
+			...prevData,
+			avatar: file,
+		}));
 	};
 
 	const handleFormSubmit = async (e) => {
@@ -69,94 +79,96 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 	};
 
 	return (
-		<form onSubmit={handleFormSubmit} className='mt-4 space-y-4'>
-			<ProfilePictureForm
-				profilePicture={formData.avatar}
-				setProfilePicture={handleAvatarChange}
-			/>
-			<div>
-				<label className='block font-bold'>Nom d'utilisateur: </label>
+		<form
+			onSubmit={handleFormSubmit}
+			className='flex flex-col items-center mt-4 space-y-6'
+		>
+			<FormSection >
+				<ProfilePictureForm
+					profilePicture={formData.avatar}
+					setProfilePicture={handleAvatarChange}
+				/>
+			</FormSection>
+			<FormSection label="Nom d'utilisateur">
 				<input
 					type='text'
 					name='username'
 					value={formData.username}
 					onChange={handleInputChange}
-					className='w-full p-2 mt-1 border rounded-lg'
+					className='w-full p-2 border rounded-lg'
 					required
 				/>
-			</div>
-			<div>
-				<label className='block font-bold'>Prénom: </label>
+			</FormSection>
+			<FormSection label='Prénom'>
 				<input
 					type='text'
 					name='firstname'
 					value={formData.firstname}
 					onChange={handleInputChange}
-					className='w-full p-2 mt-1 border rounded-lg'
+					className='w-full p-2 border rounded-lg'
 					required
 				/>
-			</div>
-			<div>
-				<label className='block font-bold'>Nom: </label>
+			</FormSection>
+			<FormSection label='Nom'>
 				<input
 					type='text'
 					name='lastname'
 					value={formData.lastname}
 					onChange={handleInputChange}
-					className='w-full p-2 mt-1 border rounded-lg'
+					className='w-full p-2 border rounded-lg'
 					required
 				/>
-			</div>
-			<div>
-				<label className='block font-bold'>Email: </label>
+			</FormSection>
+			<FormSection label='Email'>
 				<input
 					type='email'
 					name='email'
 					value={formData.email}
 					onChange={handleInputChange}
-					className='w-full p-2 mt-1 border rounded-lg'
+					className='w-full p-2 border rounded-lg'
 					required
 				/>
-			</div>
-			<div>
-				<label className='block font-bold'>Localisation: </label>
+			</FormSection>
+			<FormSection label='Localisation'>
 				<input
 					type='text'
 					name='location'
 					value={formData.location}
 					onChange={handleInputChange}
-					className='w-full p-2 mt-1 border rounded-lg'
+					className='w-full p-2 border rounded-lg'
 					required
 				/>
-			</div>
-			<div>
-				<label className='block font-bold'>Date de naissance: </label>
+			</FormSection>
+			<FormSection label='Date de naissance'>
 				<input
 					type='date'
 					name='birthdate'
 					value={formData.birthdate.split('T')[0]}
 					onChange={handleInputChange}
-					className='w-full p-2 mt-1 border rounded-lg'
+					className='w-full p-2 border rounded-lg'
 					required
 				/>
-			</div>
-			<div className='p-2 bg-white rounded-lg'>
-				<label className='block font-bold'>Biographie: </label>
-				<ReactQuill
-					value={formData.biography}
-					onChange={handleQuillChange}
-					className='mt-1'
+			</FormSection>
+			<FormSection label='Biographie'>
+				<div className='p-2 bg-white rounded-lg'>
+					<ReactQuill
+						value={formData.biography}
+						onChange={handleQuillChange}
+						className='mt-1'
+					/>
+				</div>
+			</FormSection>
+			<FormSection >
+				<InterestsForm
+					interests={formData.interests}
+					setInterests={(newInterests) =>
+						setFormData((prevData) => ({
+							...prevData,
+							interests: newInterests,
+						}))
+					}
 				/>
-			</div>
-			<InterestsForm
-				interests={formData.interests}
-				setInterests={(newInterests) =>
-					setFormData((prevData) => ({
-						...prevData,
-						interests: newInterests,
-					}))
-				}
-			/>
+			</FormSection>
 			<div className='flex space-x-4'>
 				<Button
 					type='submit'

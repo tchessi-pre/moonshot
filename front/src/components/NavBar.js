@@ -23,50 +23,6 @@ export default function NavBar() {
 					<Link href='/'>PANGEA</Link>
 				</div>
 				{size.height>size.width?<NavBarMobile />:< NavBarDesk />}
-				{/* <div className='flex w-1/4 space-x-4' >
-					<NavigationMenu className='w-full'>
-						<NavigationMenuList>
-							<NavigationMenuItem >
-								<NavigationMenuTrigger>Evénements</NavigationMenuTrigger>
-								<NavigationMenuContent>
-									<ul className='w-full sm:w-48'>
-										<li className='my-2'>
-									<NavigationMenuLink href='/services'> 
-										Créer un événements
-									</NavigationMenuLink>
-										</li>
-										<li>
-									<NavigationMenuLink href='/contact'>
-										Voir tous les événements
-									</NavigationMenuLink>
-										</li>
-									</ul>
-								</NavigationMenuContent>
-							</NavigationMenuItem>
-						</NavigationMenuList>
-					</NavigationMenu>
-					<NavigationMenu className='w-full'>
-						<NavigationMenuList>
-							<NavigationMenuItem>
-								<NavigationMenuTrigger>Connexion</NavigationMenuTrigger>
-								<NavigationMenuContent>
-								<ul className='w-36'>
-										<li className='my-2'>
-									<NavigationMenuLink href='/login'>
-										Se connecter
-									</NavigationMenuLink>
-										</li>
-										<li>
-									<NavigationMenuLink className="w-full" href='/register'>
-										S'inscrire
-									</NavigationMenuLink>
-										</li>
-									</ul>
-								</NavigationMenuContent>
-							</NavigationMenuItem>
-						</NavigationMenuList>
-					</NavigationMenu>
-				</div> */}
 			</div>
 		</nav>
 	);
