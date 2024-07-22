@@ -26,11 +26,7 @@ const Form = () => {
 		setLoading(true);
 
 		try {
-			const data = await fetchLogin(email, password);
-
-			// Sauvegarder le token et l'ID de l'utilisateur dans le sessionStorage
-			sessionStorage.setItem('token', data.token);
-			sessionStorage.setItem('user_id', data.user_id);
+			await fetchLogin(email, password); // La fonction fetchLogin enregistre déjà les données dans sessionStorage
 			toast.success('Connexion réussie !');
 			router.replace('/events');
 		} catch (error) {
