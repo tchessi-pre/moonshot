@@ -1,7 +1,8 @@
-'use client'; 
+'use client';
+
 import NavBar from '../../components/NavBar';
 import EventCard from '../../components/EventCard';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -9,100 +10,16 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import useEventStore from '@/stores/eventStore';
 
 const Events = () => {
-	const upcomingEvents = [
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire",
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire",
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire",
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire",
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire",
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: "S'inscrire",
-		},
-	];
-
-	const pastEvents = [
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: 'Lire',
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: 'Lire',
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: 'Lire',
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: 'Lire',
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: 'Lire',
-		},
-		{
-			image: '/assets/event1.png',
-			subtitle: 'Événements',
-			title: 'Événements du Mois',
-			description: 'Rencontre culinaire - Brazil',
-			buttonText: 'Lire',
-		},
-	];
-
+	const { events, fetchEvents } = useEventStore();
 	const upcomingSwiperRef = useRef(null);
 	const pastSwiperRef = useRef(null);
+
+	useEffect(() => {
+		fetchEvents();
+	}, [fetchEvents]);
 
 	const handlePrev = (swiperRef) => {
 		if (swiperRef.current) swiperRef.current.swiper.slidePrev();
@@ -111,6 +28,13 @@ const Events = () => {
 	const handleNext = (swiperRef) => {
 		if (swiperRef.current) swiperRef.current.swiper.slideNext();
 	};
+
+	const upcomingEvents = Array.isArray(events)
+		? events.filter((event) => new Date(event.attributes.date) >= new Date())
+		: [];
+	const pastEvents = Array.isArray(events)
+		? events.filter((event) => new Date(event.attributes.date) < new Date())
+		: [];
 
 	return (
 		<div
@@ -144,12 +68,15 @@ const Events = () => {
 							spaceBetween: 30,
 						},
 					}}
-					navigation={false} 
-					pagination={{ clickable: false }} 
+					navigation={false}
+					pagination={{ clickable: false }}
 				>
-					{upcomingEvents.map((event, index) => (
-						<SwiperSlide key={index}>
-							<EventCard {...event} />
+					{upcomingEvents.map((event) => (
+						<SwiperSlide key={event.id}>
+							<EventCard
+								{...event.attributes}
+								picture={event.attributes.picture}
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>
@@ -190,12 +117,15 @@ const Events = () => {
 							spaceBetween: 30,
 						},
 					}}
-					navigation={false} 
+					navigation={false}
 					pagination={{ clickable: false }}
 				>
-					{pastEvents.map((event, index) => (
-						<SwiperSlide key={index}>
-							<EventCard {...event} />
+					{pastEvents.map((event) => (
+						<SwiperSlide key={event.id}>
+							<EventCard
+								{...event.attributes}
+								picture={event.attributes.picture}
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>
