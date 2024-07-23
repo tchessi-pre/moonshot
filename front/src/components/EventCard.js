@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import EventModal from './EventModal';
 
 const getFullImageUrl = (url) => {
 	const BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
@@ -6,6 +9,7 @@ const getFullImageUrl = (url) => {
 };
 
 const EventCard = ({
+	id,
 	name,
 	category,
 	description,
@@ -14,7 +18,18 @@ const EventCard = ({
 	price,
 	link,
 	picture,
+	isVerified, 
 }) => {
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+
+	const openModal = () => {
+		setModalIsOpen(true);
+	};
+
+	const closeModal = () => {
+		setModalIsOpen(false);
+	};
+
 	const imageUrl = picture?.data?.attributes?.url
 		? getFullImageUrl(picture.data.attributes.url)
 		: null;
@@ -22,7 +37,12 @@ const EventCard = ({
 	return (
 		<div
 			className='flex overflow-hidden transition-transform duration-300 transform bg-white shadow-md hover:scale-105'
-			style={{ height: '200px', width: '430px', marginRight: '20px',  marginBottom: '10px' }}
+			style={{
+				height: '200px',
+				width: '400px',
+				marginRight: '20px',
+				marginBottom: '10px',
+			}}
 		>
 			<div className='w-1/3 h-full'>
 				{imageUrl ? (
@@ -32,13 +52,25 @@ const EventCard = ({
 						className='object-cover w-full h-full'
 					/>
 				) : (
-					<div className='flex items-center justify-center w-full h-full bg-gray-200'>Aucune image</div>
+					<div className='flex items-center justify-center w-full h-full bg-gray-200'>
+						Aucune image
+					</div>
 				)}
 			</div>
 			<div className='flex flex-col justify-between w-2/3 p-4'>
 				<div>
-					<div className='inline-block w-full p-1 text-sm text-white uppercase transition-colors duration-300 bg-gray-500 hover:bg-gray-700'>
-						{category}
+					<div className='flex items-center justify-between'>
+						<div className='inline-block w-full p-1 text-sm text-white uppercase transition-colors duration-300 bg-gray-500 hover:bg-gray-700'>
+							{category}
+						</div>
+						{isVerified && (
+							<span className='px-2 py-1 ml-2 text-xl text-white '>
+								<FontAwesomeIcon
+									icon={faCheckCircle}
+									className='text-green-500'
+								/>
+							</span>
+						)}
 					</div>
 					<h3 className='mt-3 text-sm font-bold uppercase transition-colors duration-300 hover:text-gray-700'>
 						{name}
@@ -51,14 +83,13 @@ const EventCard = ({
 					<p className='text-sm text-gray-600'>Prix: {price} €</p>
 				</div>
 				<div>
-					<a
-						href={link}
-						target='_blank'
-						rel='noopener noreferrer'
+					<button
+						onClick={openModal}
 						className='text-blue-500 transition-transform duration-300 hover:underline hover:scale-110'
 					>
 						Plus d'infos
-					</a>
+					</button>
+					<EventModal isOpen={modalIsOpen} onClose={closeModal} eventId={id} />
 				</div>
 			</div>
 		</div>

@@ -73,10 +73,7 @@ const Events = () => {
 				>
 					{upcomingEvents.map((event) => (
 						<SwiperSlide key={event.id}>
-							<EventCard
-								{...event.attributes}
-								picture={event.attributes.picture}
-							/>
+							<EventCard id={event.id} {...event.attributes} />
 						</SwiperSlide>
 					))}
 				</Swiper>
@@ -122,10 +119,7 @@ const Events = () => {
 				>
 					{pastEvents.map((event) => (
 						<SwiperSlide key={event.id}>
-							<EventCard
-								{...event.attributes}
-								picture={event.attributes.picture}
-							/>
+							<EventCard id={event.id} {...event.attributes} />
 						</SwiperSlide>
 					))}
 				</Swiper>

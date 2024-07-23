@@ -387,6 +387,7 @@ export interface ApiEventEvent extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    isVerified: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
