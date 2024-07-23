@@ -57,6 +57,9 @@
     },
     "isVerified": {
       "type": "boolean"
+    },
+    "address": {
+      "type": "string"
     }
   }
 }

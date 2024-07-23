@@ -2,7 +2,7 @@
 
 import NavBar from '../../components/NavBar';
 import EventCard from '../../components/EventCard';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -16,9 +16,16 @@ const Events = () => {
 	const { events, fetchEvents } = useEventStore();
 	const upcomingSwiperRef = useRef(null);
 	const pastSwiperRef = useRef(null);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		fetchEvents();
+		const fetchData = async () => {
+			setLoading(true);
+			await fetchEvents();
+			setLoading(false);
+		};
+
+		fetchData();
 	}, [fetchEvents]);
 
 	const handlePrev = (swiperRef) => {
@@ -77,20 +84,22 @@ const Events = () => {
 						</SwiperSlide>
 					))}
 				</Swiper>
-				<div className='flex justify-center mt-4'>
-					<button
-						onClick={() => handlePrev(upcomingSwiperRef)}
-						className='flex items-center justify-center w-10 h-10 p-2 mr-2 text-black bg-white rounded-full hover:bg-gray-400'
-					>
-						<FontAwesomeIcon icon={faArrowLeft} />
-					</button>
-					<button
-						onClick={() => handleNext(upcomingSwiperRef)}
-						className='flex items-center justify-center w-10 h-10 p-2 ml-2 text-black bg-white rounded-full hover:bg-gray-400'
-					>
-						<FontAwesomeIcon icon={faArrowRight} />
-					</button>
-				</div>
+				{!loading && (
+					<div className='flex justify-center mt-4'>
+						<button
+							onClick={() => handlePrev(upcomingSwiperRef)}
+							className='flex items-center justify-center w-10 h-10 p-2 mr-2 text-black bg-white rounded-full hover:bg-gray-400'
+						>
+							<FontAwesomeIcon icon={faArrowLeft} />
+						</button>
+						<button
+							onClick={() => handleNext(upcomingSwiperRef)}
+							className='flex items-center justify-center w-10 h-10 p-2 ml-2 text-black bg-white rounded-full hover:bg-gray-400'
+						>
+							<FontAwesomeIcon icon={faArrowRight} />
+						</button>
+					</div>
+				)}
 
 				<h2 className='mt-12 mb-6 text-2xl font-bold text-white'>
 					Événements Passés
@@ -123,20 +132,22 @@ const Events = () => {
 						</SwiperSlide>
 					))}
 				</Swiper>
-				<div className='flex justify-center mt-4'>
-					<button
-						onClick={() => handlePrev(pastSwiperRef)}
-						className='flex items-center justify-center w-10 h-10 p-2 mr-2 text-black bg-white rounded-full hover:bg-gray-400'
-					>
-						<FontAwesomeIcon icon={faArrowLeft} />
-					</button>
-					<button
-						onClick={() => handleNext(pastSwiperRef)}
-						className='flex items-center justify-center w-10 h-10 p-2 ml-2 text-black bg-white rounded-full hover:bg-gray-400'
-					>
-						<FontAwesomeIcon icon={faArrowRight} />
-					</button>
-				</div>
+				{!loading && (
+					<div className='flex justify-center mt-4'>
+						<button
+							onClick={() => handlePrev(pastSwiperRef)}
+							className='flex items-center justify-center w-10 h-10 p-2 mr-2 text-black bg-white rounded-full hover:bg-gray-400'
+						>
+							<FontAwesomeIcon icon={faArrowLeft} />
+						</button>
+						<button
+							onClick={() => handleNext(pastSwiperRef)}
+							className='flex items-center justify-center w-10 h-10 p-2 ml-2 text-black bg-white rounded-full hover:bg-gray-400'
+						>
+							<FontAwesomeIcon icon={faArrowRight} />
+						</button>
+					</div>
+				)}
 			</div>
 		</div>
 	);
