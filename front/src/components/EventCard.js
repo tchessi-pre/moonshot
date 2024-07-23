@@ -52,7 +52,7 @@ const EventCard = ({
 						className='object-cover w-full h-full'
 					/>
 				) : (
-					<div className='flex items-center justify-center w-full h-full bg-gray-200'>
+					<div className='flex items-center justify-center w-full h-full text-sm bg-gray-200'>
 						Aucune image
 					</div>
 				)}
@@ -64,7 +64,7 @@ const EventCard = ({
 							{category}
 						</div>
 						{isVerified && (
-							<span className='px-2 py-1 ml-2 text-xl text-white '>
+							<span className='px-2 py-1 ml-2 text-2xl text-white '>
 								<FontAwesomeIcon
 									icon={faCheckCircle}
 									className='text-green-500'
@@ -80,15 +80,17 @@ const EventCard = ({
 						Date: {new Date(date).toLocaleDateString()}
 					</p>
 					<p className='text-sm text-gray-600'>Participants: {participant}</p>
-					<p className='text-sm text-gray-600'>Prix: {price === 0 ? 'Gratuit' : `${price} €`}</p>
 				</div>
-				<div>
+				<div className="flex items-center justify-between">
 					<button
 						onClick={openModal}
 						className='text-blue-500 transition-transform duration-300 hover:underline hover:scale-110'
 					>
 						Plus d'infos
 					</button>
+					<p className='text-sm font-bold text-gray-600'>
+						Prix: {price === 0 ? 'Gratuit' : `${price} €`}
+					</p>
 					<EventModal isOpen={modalIsOpen} onClose={closeModal} eventId={id} />
 				</div>
 			</div>
