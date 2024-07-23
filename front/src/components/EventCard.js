@@ -36,7 +36,7 @@ const EventCard = ({
 
 	return (
 		<div
-			className='flex overflow-hidden transition-transform duration-300 transform bg-white shadow-md hover:scale-105'
+			className='flex overflow-hidden transition-transform duration-300 transform bg-white hover:scale-105'
 			style={{
 				height: '200px',
 				width: '400px',
@@ -80,7 +80,7 @@ const EventCard = ({
 						Date: {new Date(date).toLocaleDateString()}
 					</p>
 					<p className='text-sm text-gray-600'>Participants: {participant}</p>
-					<p className='text-sm text-gray-600'>Prix: {price} €</p>
+					<p className='text-sm text-gray-600'>Prix: {price === 0 ? 'Gratuit' : `${price} €`}</p>
 				</div>
 				<div>
 					<button

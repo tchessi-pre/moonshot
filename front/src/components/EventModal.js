@@ -86,7 +86,7 @@ const EventModal = ({ isOpen, onClose, eventId }) => {
 						<CardContent className='p-6 overflow-y-scroll max-h-60'>
 							<p className='text-gray-700'>{description}</p>
 							<p className='text-gray-700'>Participants: {participant}</p>
-							<p className='text-gray-700'>Prix: {price} €</p>
+							<p className='text-gray-700'>Prix: {price === 0 ? 'Gratuit' : `${price} €`}</p>
 						</CardContent>
 						<CardFooter className='px-6 py-4 bg-gray-50'>
 							<a
