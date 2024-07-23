@@ -1,15 +1,15 @@
 import axiosInstance from './axiosInstance';
 
 export const fetchCurrentUser = async () => {
-	try {
-		const response = await axiosInstance.get('/users/me?populate=*');
-		return response.data;
-	} catch (error) {
-		throw new Error(
-			error.response?.data?.message ||
-				'Erreur lors de la récupération des données utilisateur'
-		);
-	}
+  try {
+    const response = await axiosInstance.get('/users/me?populate=*');
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        'Erreur lors de la récupération des données utilisateur'
+    );
+  }
 };
 
 export const updateCurrentUser = async (userData) => {
@@ -33,7 +33,8 @@ export const updateCurrentUser = async (userData) => {
 				'Content-Type': 'multipart/form-data',
 			},
 		});
-		console.log('Server response:', response.data); // Ajout d'un log de la réponse
+
+		console.log('Server response:', response.data);
 		return response.data;
 	} catch (error) {
 		console.error(

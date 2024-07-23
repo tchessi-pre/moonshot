@@ -26,10 +26,7 @@ export default function UserInfo() {
 		const getUserData = async () => {
 			try {
 				const data = await fetchCurrentUser();
-				
-
 				data.biographyText = extractTextFromBiography(data.Biography);
-
 				setUser(data);
 			} catch (error) {
 				console.error(error.message);
@@ -61,7 +58,7 @@ export default function UserInfo() {
 	console.log('Avatar URL:', user.avatar?.url);
 
 	return (
-		<div className='p-10 mt-8 mb-8 bg-opacity-50 bg-cover rounded-lg bg-orange-50 sm:h-full sm:w-3/5'>
+		<div className='p-10 mt-16 mb-4 bg-opacity-50 bg-cover rounded-lg bg-orange-50 sm:h-full sm:w-3/5 '>
 			{isEditing ? (
 				<EditUserForm
 					user={user}
