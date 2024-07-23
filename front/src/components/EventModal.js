@@ -72,6 +72,7 @@ const EventModal = ({ isOpen, onClose, eventId }) => {
 		price = 0,
 		link = '#',
 		picture = null,
+		address = 'Adresse non disponible',
 		isVerified = false,
 	} = event || {};
 
@@ -113,7 +114,10 @@ const EventModal = ({ isOpen, onClose, eventId }) => {
 							</CardHeader>
 							<CardContent className='p-6 overflow-y-scroll max-h-60'>
 								<p className='text-gray-700'>{description}</p>
-								<p className='text-gray-700'>Nombre de participants: {participant}</p>
+								<p className='text-gray-700'>
+									Nombre de participants: {participant}
+								</p>
+								<p className='text-gray-700'>Adresse: {address}</p>
 								<p className='font-bold text-gray-700'>
 									Prix: {price === 0 ? 'Gratuit' : `${price} €`}
 								</p>
@@ -146,7 +150,7 @@ const EventModal = ({ isOpen, onClose, eventId }) => {
 							Confirmer votre inscription
 						</h2>
 						<p className='mb-6 text-gray-700'>
-							Êtes-vous sûr de vouloir vous inscrire à l'événement {" "}
+							Êtes-vous sûr de vouloir vous inscrire à l'événement{' '}
 							<span className='font-bold text-orange-500'>{name}</span> ?
 						</p>
 						<div className='flex justify-end space-x-4'>

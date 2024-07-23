@@ -5,15 +5,22 @@ const useEventStore = create((set) => ({
 	events: [],
 	fetchEvents: async () => {
 		try {
-			const response = await axiosInstance.get('/events?populate=*'); // Utilisez `populate` pour inclure l'image
+			const response = await axiosInstance.get('/events?populate=*');
 			set({ events: response.data.data });
-			console.log("🚀 ~ fetchEvents: ~ response:", response)
 		} catch (error) {
 			throw new Error(
 				error.response?.data?.message ||
 					'Erreur lors de la récupération des événements.'
 			);
 		}
+	},
+	filterEventsByCategory: (category) => {
+		set((state) => ({
+			events: state.events.filter(
+				(event) =>
+					event.attributes.category.toLowerCase() === category.toLowerCase()
+			),
+		}));
 	},
 	createEvent: async (eventData) => {
 		try {
