@@ -51,8 +51,8 @@ const InterestsForm = ({ interests, setInterests }) => {
 				multiple
 				value={interests}
 				onChange={handleInterestChange}
-				className='w-full p-2 border rounded-lg'
-				style={{ height: '200px' }} // Added height for better multi-select view
+				className='w-full p-2 border ro unded-lg'
+				style={{ height: '200px' }} 
 			>
 				{allInterests.map((interest, index) => (
 					<option key={index} value={interest} className='py-2'>
