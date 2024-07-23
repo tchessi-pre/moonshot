@@ -1,13 +1,13 @@
-// stores/eventStore.js
 import { create } from 'zustand';
 import axiosInstance from '@/services/axiosInstance';
 
 const useEventStore = create((set) => ({
 	events: [],
-	fetchUserEvents: async (userId) => {
+	fetchEvents: async () => {
 		try {
-			const response = await axiosInstance.get(`/events?user=${userId}`);
-			set({ events: response.data });
+			const response = await axiosInstance.get('/events?populate=*'); // Utilisez `populate` pour inclure l'image
+			set({ events: response.data.data });
+			console.log("🚀 ~ fetchEvents: ~ response:", response)
 		} catch (error) {
 			throw new Error(
 				error.response?.data?.message ||
@@ -22,12 +22,13 @@ const useEventStore = create((set) => ({
 					'Content-Type': 'multipart/form-data',
 				},
 			});
-			set((state) => ({ events: [...state.events, response.data] }));
-			return response.data;
+			set((state) => ({ events: [...state.events, response.data.data] }));
+			return response.data.data;
 		} catch (error) {
 			console.error('Error creating event:', error);
 			throw error;
 		}
 	},
 }));
+
 export default useEventStore;
