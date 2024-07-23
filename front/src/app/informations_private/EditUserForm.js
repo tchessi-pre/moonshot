@@ -25,7 +25,7 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 		email: user.email,
 		location: user.location,
 		birthdate: user.birthdate || '',
-		biography: user.biography || '',
+		biography: user.biographyText || '',
 		interests: Array.isArray(user.interests)
 			? user.interests.map((interest) => interest.id)
 			: [],
@@ -143,6 +143,19 @@ export const EditUserForm = ({ user, setUser, setIsEditing }) => {
 						/>
 					</div>
 				</FormSection>
+				<div className='flex flex-wrap gap-2 mt-2'>
+					{Array.isArray(user.interests) && user.interests.length > 0 ? (
+						user.interests.map((interest, index) => (
+							<div key={index} className='flex items-center space-x-2'>
+								<span className='inline-block px-2 py-1 text-white bg-gray-700 rounded-lg'>
+									{interest.name}
+								</span>
+							</div>
+						))
+					) : (
+						<span className='text-gray-500'>Aucun centre d'intérêt trouvé</span>
+					)}
+				</div>
 				<FormSection fullWidth>
 					<InterestsForm
 						interests={formData.interests}

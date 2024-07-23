@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { EditUserForm } from './EditUserForm';
 import ProfilePictureDisplay from '@/components/ProfilePictureDisplay';
 import useUserStore from '@/stores/userStore';
+import { useRouter } from 'next/navigation';
 
 const extractTextFromBiography = (biography) => {
 	if (!biography || !Array.isArray(biography)) {
@@ -18,6 +19,7 @@ const extractTextFromBiography = (biography) => {
 };
 
 export default function UserInfo() {
+	const router = useRouter();
 	const fetchCurrentUser = useUserStore((state) => state.fetchCurrentUser);
 	const user = useUserStore((state) => state.currentUser);
 	const [loading, setLoading] = useState(true);
@@ -55,7 +57,9 @@ export default function UserInfo() {
 		);
 	}
 
-	console.log('Avatar URL:', user.avatar?.url);
+	const handleCloseClick = () => {
+		router.push('/'); // Redirige vers la page d'accueil
+	};
 
 	return (
 		<div className='p-10 mt-16 mb-4 bg-opacity-50 bg-cover rounded-lg bg-orange-50 sm:h-full sm:w-3/5 '>
@@ -114,12 +118,20 @@ export default function UserInfo() {
 							</div>
 						</div>
 					</div>
-					<Button
-						className='px-4 py-2 mt-6 text-white bg-blue-500 rounded-lg'
-						onClick={handleEditClick}
-					>
-						Modifier informations générales
-					</Button>
+					<div className='flex space-x-4'>
+						<Button
+							className='px-4 py-2 mt-6 text-white bg-gray-800 rounded-lg hover:bg-gray-600'
+							onClick={handleEditClick}
+						>
+							Modifier informations générales
+						</Button>
+						<Button
+							className='px-4 py-2 mt-6 text-white bg-gray-500 rounded-lg'
+							onClick={handleCloseClick}
+						>
+							Fermer
+						</Button>
+					</div>
 				</>
 			)}
 			<ToastContainer />
