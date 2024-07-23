@@ -1,4 +1,6 @@
+// axiosInstance.js
 import axios from 'axios';
+import useAuthStore from '@/stores/authStore';
 
 const axiosInstance = axios.create({
 	baseURL: `${process.env.NEXT_PUBLIC_API_HOST}/api`,
@@ -6,7 +8,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	async (config) => {
-		const token = sessionStorage.getItem('token');
+		const { token } = useAuthStore.getState();
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
 		}
@@ -32,4 +34,3 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
-	

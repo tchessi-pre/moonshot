@@ -5,28 +5,29 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchLogin } from '../../services/authService';
+import useAuthStore from '@/stores/authStore';
 
 const Form = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+	const fetchLogin = useAuthStore((state) => state.fetchLogin);
+	const token = useAuthStore((state) => state.token);
 
 	useEffect(() => {
 		// Vérifiez si l'utilisateur est déjà connecté
-		const token = sessionStorage.getItem('token');
 		if (token) {
 			router.replace('/events'); // Rediriger si l'utilisateur est déjà connecté
 		}
-	}, [router]);
+	}, [token, router]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
 
 		try {
-			await fetchLogin(email, password); // La fonction fetchLogin enregistre déjà les données dans sessionStorage
+			await fetchLogin(email, password); // Utiliser le hook Zustand pour la connexion
 			toast.success('Connexion réussie !');
 			router.replace('/events');
 		} catch (error) {

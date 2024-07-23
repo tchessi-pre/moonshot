@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { updateCurrentUser } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import InterestsForm from '@/components/form/InterestsForm';
 import { ProfilePictureForm } from '@/components/form/ProfilePictureForm';
+import useUserStore from '@/stores/userStore';
 
 const FormSection = ({ label, children, fullWidth }) => (
 	<div className={`w-full mb-4 ${fullWidth ? 'lg:w-full' : 'lg:w-1/2 px-2'}`}>
@@ -15,6 +15,8 @@ const FormSection = ({ label, children, fullWidth }) => (
 );
 
 export const EditUserForm = ({ user, setUser, setIsEditing }) => {
+	const updateCurrentUser = useUserStore((state) => state.updateCurrentUser);
+
 	const [formData, setFormData] = useState({
 		id: user.id,
 		username: user.username,

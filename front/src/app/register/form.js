@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/component/loader';
-import { fetchRegister } from '../../services/authService';
+import useAuthStore from '@/stores/authStore';
 
 const Form = () => {
 	const router = useRouter();
+	const fetchRegister = useAuthStore((state) => state.fetchRegister);
 	const [username, setUsername] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
