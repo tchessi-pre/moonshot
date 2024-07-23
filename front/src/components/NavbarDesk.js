@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -18,24 +20,30 @@ import {
 	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import LogoutDialog from '@/components/ui/LogoutDialog';
+import useAuthStore from '@/stores/authStore';
 
 export default function NavBarDesk() {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const { token, user, setAuthData, clearAuthData } = useAuthStore();
+	const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 	const router = useRouter();
 
 	useEffect(() => {
 		const token = sessionStorage.getItem('token');
-		setIsAuthenticated(!!token);
-	}, []);
+		const userId = sessionStorage.getItem('userId');
+		if (token && userId) {
+			setAuthData(token, userId, user);
+		}
+	}, [setAuthData, user]);
 
 	const handleLogout = () => {
 		sessionStorage.removeItem('token');
-		sessionStorage.removeItem('user_id');
-		setIsAuthenticated(false);
+		sessionStorage.removeItem('userId');
+		clearAuthData();
 		setIsDialogOpen(false);
 		router.push('/login');
 	};
+
+	const isAuthenticated = !!token;
 
 	return (
 		<div className='flex w-1/4 space-x-4'>
@@ -45,16 +53,14 @@ export default function NavBarDesk() {
 						<NavigationMenuTrigger>Evénements</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className='w-full sm:w-48'>
-								{
-									isAuthenticated && (
-										<li className='my-2'>
-									<NavigationMenuLink href='/create_event'>
-										<FontAwesomeIcon icon={faPlus} className='mr-2' />
-										Créer un événement
-									</NavigationMenuLink>
-								</li>
-									)
-								}
+								{isAuthenticated && (
+									<li className='my-2'>
+										<NavigationMenuLink href='/create_event'>
+											<FontAwesomeIcon icon={faPlus} className='mr-2' />
+											Créer un événement
+										</NavigationMenuLink>
+									</li>
+								)}
 								<li>
 									<NavigationMenuLink href='/events'>
 										<FontAwesomeIcon icon={faList} className='mr-2' />
@@ -70,7 +76,7 @@ export default function NavBarDesk() {
 				<NavigationMenuList>
 					<NavigationMenuItem>
 						<NavigationMenuTrigger>
-							{isAuthenticated ? 'Compte' : 'Connexion'}
+							{isAuthenticated ? user?.username || 'Compte' : 'Connexion'}
 						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className='w-36'>

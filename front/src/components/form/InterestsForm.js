@@ -1,31 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { fetchInterests } from '../../services/interestService';
+import React, { useEffect } from 'react';
+import useInterestStore from '@/stores/interestStore';
 
 const InterestsForm = ({ interests, setInterests }) => {
-	const [allInterests, setAllInterests] = useState([]);
+	const fetchInterests = useInterestStore((state) => state.fetchInterests);
+	const allInterests = useInterestStore((state) => state.allInterests);
 
 	useEffect(() => {
-		const loadInterests = async () => {
-			try {
-				const interestsData = await fetchInterests();
-				if (interestsData.data && Array.isArray(interestsData.data)) {
-					const interestList = interestsData.data.map(
-						(item) => item.attributes.name
-					);
-					setAllInterests(interestList);
-				}
-			} catch (error) {
-				console.error(
-					"Erreur lors de la récupération des centres d'intérêt",
-					error
-				);
-			}
-		};
-
-		loadInterests();
-	}, []);
+		fetchInterests();
+	}, [fetchInterests]);
 
 	const handleInterestChange = (e) => {
 		const options = e.target.options;
@@ -38,7 +22,7 @@ const InterestsForm = ({ interests, setInterests }) => {
 		setInterests(selectedInterests);
 	};
 
-	if (!Array.isArray(allInterests)) {
+	if (!allInterests || allInterests.length === 0) {
 		return (
 			<div className='text-gray-600'>Chargement des centres d'intérêt...</div>
 		);
@@ -51,8 +35,8 @@ const InterestsForm = ({ interests, setInterests }) => {
 				multiple
 				value={interests}
 				onChange={handleInterestChange}
-				className='w-full p-2 border ro unded-lg'
-				style={{ height: '200px' }} 
+				className='w-full p-2 border rounded-lg'
+				style={{ height: '200px' }}
 			>
 				{allInterests.map((interest, index) => (
 					<option key={index} value={interest} className='py-2'>

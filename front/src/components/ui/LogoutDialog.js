@@ -7,7 +7,7 @@ const LogoutDialog = ({ isOpen, onOpenChange, onLogout }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <button className='flex items-center w-full text-lg text-left'>
+        <button className='flex items-center w-full text-md left text-'>
           <FontAwesomeIcon icon={faSignOutAlt} className='mr-2' />
           Se déconnecter
         </button>

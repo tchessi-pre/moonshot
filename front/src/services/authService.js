@@ -1,7 +1,11 @@
+// authService.js
 import axiosInstance from './axiosInstance';
+import useAuthStore from '@/stores/authStore';
 
 const saveAuthData = (jwt, userId) => {
 	if (jwt && userId) {
+		const setAuthData = useAuthStore.getState().setAuthData;
+		setAuthData(jwt, userId);
 		sessionStorage.setItem('token', jwt);
 		sessionStorage.setItem('userId', userId);
 	} else {

@@ -1,10 +1,14 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createEvent } from '../../services/eventService';
 import { Button } from '@/components/ui/button';
+import useEventStore from '@/stores/eventStore';
 
 function Form() {
 	const router = useRouter();
+	const createEvent = useEventStore((state) => state.createEvent);
+
 	const [eventName, setEventName] = useState('');
 	const [place, setPlace] = useState('');
 	const [date, setDate] = useState('');
@@ -204,7 +208,7 @@ function Form() {
 					type='submit'
 					className={`w-full px-6 py-3 text-white rounded-lg focus:outline-none focus:ring-2 ${
 						acceptTerms
-							? 'bg-black hover:bg-gray-60 hover:bg-gray-600'
+							? 'bg-black hover:bg-gray-600'
 							: 'bg-gray-400 cursor-not-allowed'
 					}`}
 					disabled={!acceptTerms || loading}

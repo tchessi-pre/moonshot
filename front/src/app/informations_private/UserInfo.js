@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { fetchCurrentUser } from '../../services/userService';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@/components/ui/button';
 import { EditUserForm } from './EditUserForm';
 import ProfilePictureDisplay from '@/components/ProfilePictureDisplay';
+import useUserStore from '@/stores/userStore';
 
 const extractTextFromBiography = (biography) => {
 	if (!biography || !Array.isArray(biography)) {
@@ -18,7 +18,8 @@ const extractTextFromBiography = (biography) => {
 };
 
 export default function UserInfo() {
-	const [user, setUser] = useState(null);
+	const fetchCurrentUser = useUserStore((state) => state.fetchCurrentUser);
+	const user = useUserStore((state) => state.currentUser);
 	const [loading, setLoading] = useState(true);
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -27,7 +28,6 @@ export default function UserInfo() {
 			try {
 				const data = await fetchCurrentUser();
 				data.biographyText = extractTextFromBiography(data.Biography);
-				setUser(data);
 			} catch (error) {
 				console.error(error.message);
 				toast.error(error.message);
@@ -37,7 +37,7 @@ export default function UserInfo() {
 		};
 
 		getUserData();
-	}, []);
+	}, [fetchCurrentUser]);
 
 	const handleEditClick = () => {
 		setIsEditing(true);
@@ -62,7 +62,12 @@ export default function UserInfo() {
 			{isEditing ? (
 				<EditUserForm
 					user={user}
-					setUser={setUser}
+					setUser={(updatedUser) => {
+						user.biographyText = extractTextFromBiography(
+							updatedUser.Biography
+						);
+						setUser(updatedUser);
+					}}
 					setIsEditing={setIsEditing}
 				/>
 			) : (
