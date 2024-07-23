@@ -54,6 +54,9 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "events"
+    },
+    "isVerified": {
+      "type": "boolean"
     }
   }
 }
