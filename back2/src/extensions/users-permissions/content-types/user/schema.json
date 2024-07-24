@@ -102,6 +102,17 @@
       "relation": "oneToMany",
       "target": "api::event.event",
       "mappedBy": "user"
+    },
+    "registrations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registration.registration"
+    },
+    "registration_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registration.registration",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
