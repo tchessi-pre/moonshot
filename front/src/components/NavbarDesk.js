@@ -75,6 +75,31 @@ export default function NavBarDesk() {
 			<NavigationMenu className='w-full'>
 				<NavigationMenuList>
 					<NavigationMenuItem>
+						<NavigationMenuTrigger>Articles</NavigationMenuTrigger>
+						<NavigationMenuContent>
+							<ul className='w-full sm:w-48'>
+								{isAuthenticated && (
+									<li className='my-2'>
+										<NavigationMenuLink href='/articles/create'>
+											<FontAwesomeIcon icon={faPlus} className='mr-2' />
+											Créer un article
+										</NavigationMenuLink>
+									</li>
+								)}
+								<li>
+									<NavigationMenuLink href='/articles'>
+										<FontAwesomeIcon icon={faList} className='mr-2' />
+										Tous les articles
+									</NavigationMenuLink>
+								</li>
+							</ul>
+						</NavigationMenuContent>
+					</NavigationMenuItem>
+				</NavigationMenuList>
+			</NavigationMenu>
+			<NavigationMenu className='w-full'>
+				<NavigationMenuList>
+					<NavigationMenuItem>
 						<NavigationMenuTrigger>
 							{isAuthenticated ? user?.username || 'Compte' : 'Connexion'}
 						</NavigationMenuTrigger>

@@ -31,7 +31,7 @@ export default function NavBarMobile() {
 		const token = sessionStorage.getItem('token');
 		const userId = sessionStorage.getItem('userId');
 		if (token && userId) {
-			setAuthData(token, userId, null); // Mettre à jour l'état avec le token et userId
+			setAuthData(token, userId, null);
 		}
 	}, [setAuthData]);
 
@@ -59,7 +59,10 @@ export default function NavBarMobile() {
 							<ul className='w-full'>
 								{isAuthenticated && (
 									<li className='my-3'>
-										<Link href='/create_event' className='flex items-center text-lg'>
+										<Link
+											href='/create_event'
+											className='flex items-center text-lg'
+										>
 											<FontAwesomeIcon icon={faPlus} className='mr-2' />
 											Créer un événement
 										</Link>
@@ -74,10 +77,33 @@ export default function NavBarMobile() {
 							</ul>
 							<div className='my-5 border-t border-gray-700'></div>
 							<ul className='w-full'>
+								{isAuthenticated && (
+									<li className='my-3'>
+										<Link
+											href='/articles/create'
+											className='flex items-center text-lg'
+										>
+											<FontAwesomeIcon icon={faPlus} className='mr-2' />
+											Créer un article
+										</Link>
+									</li>
+								)}
+								<li className='my-3'>
+									<Link href='/articles' className='flex items-center text-lg'>
+										<FontAwesomeIcon icon={faList} className='mr-2' />
+										Voir tous les articles
+									</Link>
+								</li>
+							</ul>
+							<div className='my-5 border-t border-gray-700'></div>
+							<ul className='w-full'>
 								{isAuthenticated ? (
 									<>
 										<li className='my-3'>
-											<Link href='/informations_private' className='flex items-center text-lg'>
+											<Link
+												href='/informations_private'
+												className='flex items-center text-lg'
+											>
 												<FontAwesomeIcon icon={faUser} className='mr-2' />
 												Mon compte
 											</Link>
@@ -99,7 +125,10 @@ export default function NavBarMobile() {
 											</Link>
 										</li>
 										<li className='my-3'>
-											<Link href='/register' className='flex items-center text-lg'>
+											<Link
+												href='/register'
+												className='flex items-center text-lg'
+											>
 												<FontAwesomeIcon icon={faUserPlus} className='mr-2' />
 												S'inscrire
 											</Link>
