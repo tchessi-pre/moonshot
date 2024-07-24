@@ -60,6 +60,17 @@
     },
     "address": {
       "type": "string"
+    },
+    "registrations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registration.registration"
+    },
+    "registration_events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registration.registration",
+      "mappedBy": "event"
     }
   }
 }

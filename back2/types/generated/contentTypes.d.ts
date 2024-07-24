@@ -389,6 +389,16 @@ export interface ApiEventEvent extends Schema.CollectionType {
     >;
     isVerified: Attribute.Boolean;
     address: Attribute.String;
+    registrations: Attribute.Relation<
+      'api::event.event',
+      'oneToMany',
+      'api::registration.registration'
+    >;
+    registration_events: Attribute.Relation<
+      'api::event.event',
+      'oneToMany',
+      'api::registration.registration'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -435,6 +445,47 @@ export interface ApiInterestInterest extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::interest.interest',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRegistrationRegistration extends Schema.CollectionType {
+  collectionName: 'registrations';
+  info: {
+    singularName: 'registration';
+    pluralName: 'registrations';
+    displayName: 'Registration';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    status: Attribute.Enumeration<['pending', 'confirmed', 'cancelled']>;
+    users_permissions_user: Attribute.Relation<
+      'api::registration.registration',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    event: Attribute.Relation<
+      'api::registration.registration',
+      'manyToOne',
+      'api::event.event'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::registration.registration',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::registration.registration',
       'oneToOne',
       'admin::user'
     > &
@@ -819,6 +870,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::event.event'
     >;
+    registrations: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::registration.registration'
+    >;
+    registration_users: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::registration.registration'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -895,6 +956,7 @@ declare module '@strapi/types' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::event.event': ApiEventEvent;
       'api::interest.interest': ApiInterestInterest;
+      'api::registration.registration': ApiRegistrationRegistration;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

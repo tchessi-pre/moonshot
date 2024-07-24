@@ -15,16 +15,23 @@ import axiosInstance from '@/services/axiosInstance';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import useRegistrationStore from '@/stores/registrationStore';
+import ConfirmDialog from './ConfirmDialog';
+import { useRouter } from 'next/navigation';
 
 const getFullImageUrl = (url) => {
 	const BASE_URL = process.env.NEXT_PUBLIC_API_HOST;
-	return `${BASE_URL}${url}`;
+	return url ? `${BASE_URL}${url}` : '/assets/event-placeholder.png';
 };
 
-const EventModal = ({ isOpen, onClose, eventId }) => {
+const EventModal = ({ isOpen, onClose, eventId, userId }) => {
 	const [event, setEvent] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [confirmDialogIsOpen, setConfirmDialogIsOpen] = useState(false);
+	const createRegistration = useRegistrationStore(
+		(state) => state.createRegistration
+	);
+	const router = useRouter();
 
 	useEffect(() => {
 		if (isOpen) {
@@ -49,17 +56,15 @@ const EventModal = ({ isOpen, onClose, eventId }) => {
 
 	const handleRegistration = async () => {
 		try {
-			const userId = 1;
-			await axiosInstance.post('/registrations', {
-				user: userId,
-				event: eventId,
-			});
+			const registration = await createRegistration(userId, eventId);
+			console.log('Inscription réussie:', registration);
 			toast.success('Inscription réussie!');
 			setConfirmDialogIsOpen(false);
 			onClose();
+			router.push(`/confirmation?eventName=${event.name}`);
 		} catch (error) {
 			console.error("Erreur lors de l'inscription à l'événement:", error);
-			toast.error("Erreur lors de l'inscription à l'événement.");
+			toast.error(error.message);
 		}
 	};
 
@@ -143,28 +148,12 @@ const EventModal = ({ isOpen, onClose, eventId }) => {
 				</DialogContent>
 			</Dialog>
 
-			<Dialog open={confirmDialogIsOpen} onOpenChange={setConfirmDialogIsOpen}>
-				<DialogContent className='max-w-lg p-6 mx-auto bg-white rounded-lg shadow-lg'>
-					<div className='flex flex-col'>
-						<h2 className='mb-4 text-xl font-semibold text-gray-700'>
-							Confirmer votre inscription
-						</h2>
-						<p className='mb-6 text-gray-700'>
-							Êtes-vous sûr de vouloir vous inscrire à l'événement{' '}
-							<span className='font-bold text-orange-500'>{name}</span> ?
-						</p>
-						<div className='flex justify-end space-x-4'>
-							<Button
-								variant='secondary'
-								onClick={() => setConfirmDialogIsOpen(false)}
-							>
-								Annuler
-							</Button>
-							<Button onClick={handleRegistration}>Confirmer</Button>
-						</div>
-					</div>
-				</DialogContent>
-			</Dialog>
+			<ConfirmDialog
+				isOpen={confirmDialogIsOpen}
+				onClose={() => setConfirmDialogIsOpen(false)}
+				onConfirm={handleRegistration}
+				eventName={name}
+			/>
 		</>
 	);
 };
