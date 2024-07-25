@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import axiosInstance from '@/services/axiosInstance';
 
+const generateConfirmationNumber = () => {
+	return Math.floor(100000 + Math.random() * 900000); // Génère un numéro à 6 chiffres
+};
+
 const useRegistrationStore = create((set) => ({
 	registrations: [],
 	fetchRegistrations: async () => {
@@ -16,25 +20,12 @@ const useRegistrationStore = create((set) => ({
 	},
 	createRegistration: async (userId, eventId) => {
 		try {
-			// Vérifiez d'abord si l'utilisateur est déjà inscrit à cet événement
-			const existingRegistrations = await axiosInstance.get('/registrations', {
-				params: {
-					filters: {
-						user: userId,
-						event: eventId,
-					},
-				},
-			});
-
-			if (existingRegistrations.data.data.length > 0) {
-				throw new Error('Vous êtes déjà inscrit à cet événement.');
-			}
-
-			// Créez une nouvelle inscription si aucune inscription existante n'est trouvée
+			const confirmationNumber = generateConfirmationNumber();
 			const response = await axiosInstance.post('/registrations', {
 				data: {
 					user: userId,
 					event: eventId,
+					confirmationNumber, // Inclure le numéro de confirmation
 				},
 			});
 			set((state) => ({

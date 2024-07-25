@@ -31,6 +31,9 @@
       "relation": "manyToOne",
       "target": "api::event.event",
       "inversedBy": "registration_events"
+    },
+    "confirmationNumber": {
+      "type": "biginteger"
     }
   }
 }

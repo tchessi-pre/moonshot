@@ -475,6 +475,7 @@ export interface ApiRegistrationRegistration extends Schema.CollectionType {
       'manyToOne',
       'api::event.event'
     >;
+    confirmationNumber: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
