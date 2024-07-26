@@ -46,7 +46,7 @@ export default function NavBarDesk() {
 	const isAuthenticated = !!token;
 
 	return (
-		<div className='flex w-1/4 space-x-4'>
+		<div className='flex w-1/4 space-x-4 '>
 			<NavigationMenu className='w-full'>
 				<NavigationMenuList>
 					<NavigationMenuItem>
