@@ -17,31 +17,36 @@
 		<em>Developed with the software and tools below.</em>
 </p>
 <p align="center">
+	<img src="https://img.shields.io/badge/esbuild-FFCF00.svg?style=flat&logo=esbuild&logoColor=black" alt="esbuild">
+	<img src="https://img.shields.io/badge/EditorConfig-FEFEFE.svg?style=flat&logo=EditorConfig&logoColor=black" alt="EditorConfig">
 	<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=JavaScript&logoColor=black" alt="JavaScript">
+	<img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat&logo=Prettier&logoColor=black" alt="Prettier">
 	<img src="https://img.shields.io/badge/.ENV-ECD53F.svg?style=flat&logo=dotenv&logoColor=black" alt=".ENV">
 	<img src="https://img.shields.io/badge/PostCSS-DD3A0A.svg?style=flat&logo=PostCSS&logoColor=white" alt="PostCSS">
+	<img src="https://img.shields.io/badge/styledcomponents-DB7093.svg?style=flat&logo=styled-components&logoColor=white" alt="styledcomponents">
+	<img src="https://img.shields.io/badge/CodeMirror-D30707.svg?style=flat&logo=CodeMirror&logoColor=white" alt="CodeMirror">
 	<img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat&logo=YAML&logoColor=white" alt="YAML">
-	<img src="https://img.shields.io/badge/PHP-777BB4.svg?style=flat&logo=PHP&logoColor=white" alt="PHP">
+	<img src="https://img.shields.io/badge/sharp-99CC00.svg?style=flat&logo=sharp&logoColor=white" alt="sharp">
+	<img src="https://img.shields.io/badge/Webpack-8DD6F9.svg?style=flat&logo=Webpack&logoColor=black" alt="Webpack">
+	<img src="https://img.shields.io/badge/Nodemon-76D04B.svg?style=flat&logo=Nodemon&logoColor=white" alt="Nodemon">
+	<img src="https://img.shields.io/badge/Redux-764ABC.svg?style=flat&logo=Redux&logoColor=white" alt="Redux">
+	<img src="https://img.shields.io/badge/Vite-646CFF.svg?style=flat&logo=Vite&logoColor=white" alt="Vite">
+	<br>
+	<img src="https://img.shields.io/badge/Swiper-6332F6.svg?style=flat&logo=Swiper&logoColor=white" alt="Swiper">
 	<img src="https://img.shields.io/badge/React-61DAFB.svg?style=flat&logo=React&logoColor=black" alt="React">
+	<img src="https://img.shields.io/badge/Axios-5A29E4.svg?style=flat&logo=Axios&logoColor=white" alt="Axios">
 	<img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat&logo=ESLint&logoColor=white" alt="ESLint">
+	<img src="https://img.shields.io/badge/SemVer-3F4551.svg?style=flat&logo=SemVer&logoColor=white" alt="SemVer">
+	<img src="https://img.shields.io/badge/Passport-34E27A.svg?style=flat&logo=Passport&logoColor=white" alt="Passport">
+	<img src="https://img.shields.io/badge/Lodash-3492FF.svg?style=flat&logo=Lodash&logoColor=white" alt="Lodash">
+	<img src="https://img.shields.io/badge/Koa-33333D.svg?style=flat&logo=Koa&logoColor=white" alt="Koa">
+	<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat&logo=TypeScript&logoColor=white" alt="TypeScript">
+	<img src="https://img.shields.io/badge/Ajv-23C8D2.svg?style=flat&logo=Ajv&logoColor=white" alt="Ajv">
+	<img src="https://img.shields.io/badge/Buffer-231F20.svg?style=flat&logo=Buffer&logoColor=white" alt="Buffer">
+	<img src="https://img.shields.io/badge/Immer-00E7C3.svg?style=flat&logo=Immer&logoColor=white" alt="Immer">
 	<img src="https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white" alt="JSON">
 </p>
 <hr>
-
-## 🔗 Quick Links
-
-> - [📍 Overview](#-overview)
-> - [📦 Features](#-features)
-> - [📂 Repository Structure](#-repository-structure)
-> - [🧩 Modules](#-modules)
-> - [🚀 Getting Started](#-getting-started)
->   - [⚙️ Installation](#️-installation)
->   - [🤖 Running moonshot](#-running-moonshot)
->   - [🧪 Tests](#-tests)
-> - [🛠 Project Roadmap](#-project-roadmap)
-> - [🤝 Contributing](#-contributing)
-> - [📄 License](#-license)
-> - [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -60,195 +65,34 @@ HTTP error 401 for prompt `features`
 ## 📂 Repository Structure
 
 ```sh
-└── moonshot/
-    ├── README.md
-    ├── back
-    │   ├── .env
-    │   ├── .gitignore
-    │   ├── bin
-    │   │   └── console
-    │   ├── composer.json
-    │   ├── composer.lock
-    │   ├── config
-    │   │   ├── bundles.php
-    │   │   ├── packages
-    │   │   │   ├── cache.yaml
-    │   │   │   ├── framework.yaml
-    │   │   │   └── routing.yaml
-    │   │   ├── preload.php
-    │   │   ├── routes
-    │   │   │   └── framework.yaml
-    │   │   ├── routes.yaml
-    │   │   └── services.yaml
-    │   ├── public
-    │   │   └── index.php
-    │   ├── src
-    │   │   ├── Controller
-    │   │   │   └── .gitignore
-    │   │   └── Kernel.php
-    │   └── symfony.lock
-    └── front
-        ├── .eslintrc.json
-        ├── .gitignore
-        ├── README.md
-        ├── components.json
-        ├── jsconfig.json
-        ├── next.config.mjs
-        ├── package-lock.json
-        ├── package.json
-        ├── postcss.config.mjs
-        ├── public
-        │   ├── next.svg
-        │   └── vercel.svg
-        ├── src
-        │   ├── app
-        │   │   ├── favicon.ico
-        │   │   ├── globals.css
-        │   │   ├── layout.js
-        │   │   ├── login
-        │   │   │   ├── page.js
-        │   │   │   └── style.css
-        │   │   ├── page.js
-        │   │   └── register
-        │   │       └── page.js
-        │   ├── components
-        │   │   └── ui
-        │   │       └── button.jsx
-        │   └── lib
-        │       └── utils.js
-        └── tailwind.config.js
+moonshot/
+├── README.md
+├── back/
+│ ├── .env
+│ ├── .gitignore
+│ ├── bin/
+│ ├── config/
+│ ├── public/
+│ ├── src/
+│ └── composer.json
+└── front/
+├── .eslintrc.json
+├── .gitignore
+├── components.json
+├── jsconfig.json
+├── next.config.mjs
+├── public/
+├── src/
+└── package.json
 ```
-
----
-
-## 🧩 Modules
-
-<details closed><summary>front</summary>
-
-| File                                                                                               | Summary                                              |
-| ---                                                                                                | ---                                                  |
-| [.eslintrc.json](https://github.com/tchessi-pre/moonshot/blob/master/front/.eslintrc.json)         | HTTP error 401 for prompt `front/.eslintrc.json`     |
-| [jsconfig.json](https://github.com/tchessi-pre/moonshot/blob/master/front/jsconfig.json)           | HTTP error 401 for prompt `front/jsconfig.json`      |
-| [postcss.config.mjs](https://github.com/tchessi-pre/moonshot/blob/master/front/postcss.config.mjs) | HTTP error 401 for prompt `front/postcss.config.mjs` |
-| [components.json](https://github.com/tchessi-pre/moonshot/blob/master/front/components.json)       | HTTP error 401 for prompt `front/components.json`    |
-| [package.json](https://github.com/tchessi-pre/moonshot/blob/master/front/package.json)             | HTTP error 401 for prompt `front/package.json`       |
-| [next.config.mjs](https://github.com/tchessi-pre/moonshot/blob/master/front/next.config.mjs)       | HTTP error 401 for prompt `front/next.config.mjs`    |
-| [tailwind.config.js](https://github.com/tchessi-pre/moonshot/blob/master/front/tailwind.config.js) | HTTP error 401 for prompt `front/tailwind.config.js` |
-| [package-lock.json](https://github.com/tchessi-pre/moonshot/blob/master/front/package-lock.json)   | HTTP error 401 for prompt `front/package-lock.json`  |
-
-</details>
-
-<details closed><summary>front.src.components.ui</summary>
-
-| File                                                                                                 | Summary                                                        |
-| ---                                                                                                  | ---                                                            |
-| [button.jsx](https://github.com/tchessi-pre/moonshot/blob/master/front/src/components/ui/button.jsx) | HTTP error 401 for prompt `front/src/components/ui/button.jsx` |
-
-</details>
-
-<details closed><summary>front.src.lib</summary>
-
-| File                                                                                   | Summary                                            |
-| ---                                                                                    | ---                                                |
-| [utils.js](https://github.com/tchessi-pre/moonshot/blob/master/front/src/lib/utils.js) | HTTP error 401 for prompt `front/src/lib/utils.js` |
-
-</details>
-
-<details closed><summary>front.src.app</summary>
-
-| File                                                                                         | Summary                                               |
-| ---                                                                                          | ---                                                   |
-| [layout.js](https://github.com/tchessi-pre/moonshot/blob/master/front/src/app/layout.js)     | HTTP error 401 for prompt `front/src/app/layout.js`   |
-| [page.js](https://github.com/tchessi-pre/moonshot/blob/master/front/src/app/page.js)         | HTTP error 401 for prompt `front/src/app/page.js`     |
-| [globals.css](https://github.com/tchessi-pre/moonshot/blob/master/front/src/app/globals.css) | HTTP error 401 for prompt `front/src/app/globals.css` |
-
-</details>
-
-<details closed><summary>front.src.app.register</summary>
-
-| File                                                                                          | Summary                                                    |
-| ---                                                                                           | ---                                                        |
-| [page.js](https://github.com/tchessi-pre/moonshot/blob/master/front/src/app/register/page.js) | HTTP error 401 for prompt `front/src/app/register/page.js` |
-
-</details>
-
-<details closed><summary>front.src.app.login</summary>
-
-| File                                                                                           | Summary                                                   |
-| ---                                                                                            | ---                                                       |
-| [page.js](https://github.com/tchessi-pre/moonshot/blob/master/front/src/app/login/page.js)     | HTTP error 401 for prompt `front/src/app/login/page.js`   |
-| [style.css](https://github.com/tchessi-pre/moonshot/blob/master/front/src/app/login/style.css) | HTTP error 401 for prompt `front/src/app/login/style.css` |
-
-</details>
-
-<details closed><summary>back</summary>
-
-| File                                                                                    | Summary                                        |
-| ---                                                                                     | ---                                            |
-| [composer.lock](https://github.com/tchessi-pre/moonshot/blob/master/back/composer.lock) | HTTP error 401 for prompt `back/composer.lock` |
-| [.env](https://github.com/tchessi-pre/moonshot/blob/master/back/.env)                   | HTTP error 401 for prompt `back/.env`          |
-| [composer.json](https://github.com/tchessi-pre/moonshot/blob/master/back/composer.json) | HTTP error 401 for prompt `back/composer.json` |
-
-</details>
-
-<details closed><summary>back.public</summary>
-
-| File                                                                                   | Summary                                           |
-| ---                                                                                    | ---                                               |
-| [index.php](https://github.com/tchessi-pre/moonshot/blob/master/back/public/index.php) | HTTP error 401 for prompt `back/public/index.php` |
-
-</details>
-
-<details closed><summary>back.bin</summary>
-
-| File                                                                            | Summary                                      |
-| ---                                                                             | ---                                          |
-| [console](https://github.com/tchessi-pre/moonshot/blob/master/back/bin/console) | HTTP error 401 for prompt `back/bin/console` |
-
-</details>
-
-<details closed><summary>back.config</summary>
-
-| File                                                                                           | Summary                                               |
-| ---                                                                                            | ---                                                   |
-| [bundles.php](https://github.com/tchessi-pre/moonshot/blob/master/back/config/bundles.php)     | HTTP error 401 for prompt `back/config/bundles.php`   |
-| [preload.php](https://github.com/tchessi-pre/moonshot/blob/master/back/config/preload.php)     | HTTP error 401 for prompt `back/config/preload.php`   |
-| [routes.yaml](https://github.com/tchessi-pre/moonshot/blob/master/back/config/routes.yaml)     | HTTP error 401 for prompt `back/config/routes.yaml`   |
-| [services.yaml](https://github.com/tchessi-pre/moonshot/blob/master/back/config/services.yaml) | HTTP error 401 for prompt `back/config/services.yaml` |
-
-</details>
-
-<details closed><summary>back.config.routes</summary>
-
-| File                                                                                                    | Summary                                                       |
-| ---                                                                                                     | ---                                                           |
-| [framework.yaml](https://github.com/tchessi-pre/moonshot/blob/master/back/config/routes/framework.yaml) | HTTP error 401 for prompt `back/config/routes/framework.yaml` |
-
-</details>
-
-<details closed><summary>back.config.packages</summary>
-
-| File                                                                                                      | Summary                                                         |
-| ---                                                                                                       | ---                                                             |
-| [routing.yaml](https://github.com/tchessi-pre/moonshot/blob/master/back/config/packages/routing.yaml)     | HTTP error 401 for prompt `back/config/packages/routing.yaml`   |
-| [cache.yaml](https://github.com/tchessi-pre/moonshot/blob/master/back/config/packages/cache.yaml)         | HTTP error 401 for prompt `back/config/packages/cache.yaml`     |
-| [framework.yaml](https://github.com/tchessi-pre/moonshot/blob/master/back/config/packages/framework.yaml) | HTTP error 401 for prompt `back/config/packages/framework.yaml` |
-
-</details>
-
-<details closed><summary>back.src</summary>
-
-| File                                                                                  | Summary                                         |
-| ---                                                                                   | ---                                             |
-| [Kernel.php](https://github.com/tchessi-pre/moonshot/blob/master/back/src/Kernel.php) | HTTP error 401 for prompt `back/src/Kernel.php` |
-
-</details>
 
 ---
 
 ## 🚀 Getting Started
 
 ***Requirements***
+
+Ensure you have the following dependencies installed on your system:
 
 
 ### ⚙️ Installation
@@ -268,61 +112,32 @@ cd moonshot
 3. Install the dependencies:
 
 ```sh
-npm install
+cd back && npm install
+```
+```sh
+cd front && npm install
 ```
 
 ### 🤖 Running moonshot
 
-Use the following command to run moonshot :
-1. Use the following command to run moonshot backend:
-
+Use the following command to run moonshot:
+1. Back:
 ```sh
-cd back 
+npm run develop
 ```
+1. Front:
 ```sh
-composer install && symfony server:start
-```
-
-2. Use the following command to run moonshot frontend:
-
-```sh
-cd front 
-```
-```sh
-npm install && npm run dev
-```
-### 🧪 Tests
-
-To execute tests, run:
-
-```sh
-npm test
-```
-
-### 🧪 API DOCUMENTATION
-
-
-```sh
-http://localhost:8000/api
+npm run dev
 ```
 
 ---
+## 🤝 Conception
 
-## 🛠 Project Roadmap
+- **[Wireframe](https://www.figma.com/design/nDGHtKKFkStm1zVtugfFhx/Untitled?node-id=0-1&t=9wNLLy8oaECfHVId-0)**
 
-- [X] `► INSERT-TASK-1`
-- [ ] `► INSERT-TASK-2`
-- [ ] `► ...`
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here are several ways you can contribute:
-
-- **[Submit Pull Requests](https://github.com/tchessi-pre/moonshot/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/tchessi-pre/moonshot/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/tchessi-pre/moonshot/issues)**: Submit bugs found or log feature requests for Moonshot.
+- **[Charte Graphique](https://www.figma.com/design/BgWusehb6e9POtgL4tUnO0/Untitled?node-id=1-2&t=7oAUOfUXRkXdFBVk-0)**:
+- **[Maquette](https://www.figma.com/design/BgWusehb6e9POtgL4tUnO0/Untitled?node-id=1-2&t=7oAUOfUXRkXdFBVk-0)**
+- **[Github project](https://github.com/users/tchessi-pre/projects/3)**
 
 <details closed>
     <summary>Contributing Guidelines</summary>
