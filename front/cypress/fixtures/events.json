@@ -1,0 +1,26 @@
+{
+	"validEvent": {
+		"eventName": "Concert de test",
+		"place": "123 Rue de la Musique",
+		"date": "2023-12-31",
+		"time": "20:00",
+		"eventType": "Musique",
+		"number": "100",
+		"price": "50",
+		"lien": "http://example.com",
+		"description": "Un concert de test pour Cypress.",
+		"image": "cuisine2.png"
+	},
+	"emptyEvent": {
+		"eventName": "",
+		"place": "",
+		"date": "",
+		"time": "",
+		"eventType": "",
+		"number": "",
+		"price": "",
+		"lien": "",
+		"description": "",
+		"image": ""
+	}
+}

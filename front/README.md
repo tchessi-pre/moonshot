@@ -20,6 +20,25 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Running Tests with Cypress
+
+This project includes end-to-end (E2E) tests using [Cypress](https://www.cypress.io/). Cypress is a powerful testing framework for web applications, allowing you to write and execute tests in a real browser.
+
+### Setting Up Cypress
+
+First, install Cypress if you haven't already:
+
+```bash
+npm install cypress --save-dev
+# or
+yarn add cypress --dev
+
+```
+```bash
+npx cypress open
+
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
